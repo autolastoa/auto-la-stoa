@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Importation de Véhicules d'Europe - Auto La Stoa</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8f8f8; /* Légèrement gris clair */
+        }
+        /* Custom scrollbar for a cleaner look */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #e0e0e0;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #a0a0a0;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #808080;
+        }
+
+        /* Définition des couleurs personnalisées pour le bleu #000086 et ses variantes */
+        .bg-custom-blue {
+            background-color: #000086;
+        }
+        .hover\:bg-custom-blue-darker:hover {
+            background-color: #000064; /* Une nuance plus foncée pour le survol */
+        }
+        .text-custom-blue {
+            color: #000086;
+        }
+        .bg-custom-blue-light {
+            background-color: #9696C8; /* Une nuance plus claire pour la ligne */
+        }
+        .focus\:ring-custom-blue:focus {
+            outline-color: #000086;
+            box-shadow: 0 0 0 3px rgba(0, 0, 134, 0.3); /* Ajout d'une ombre pour le focus */
+        }
+        .focus\:border-custom-blue:focus {
+            border-color: #000086;
+        }
+    </style>
+</head>
+<body class="text-gray-800">
+
+    <header class="bg-white shadow-md py-4 px-6 md:px-12 fixed w-full z-50">
+        <div class="container mx-auto flex justify-between items-center">
+            <a href="#" class="flex items-center space-x-2">
+                <img src="images/logo-auto-la-stoa.png" alt="Logo Auto La Stoa" class="h-24 w-24 rounded-full shadow-md">
+            </a>
+            <nav class="hidden md:flex space-x-1">
+                <a href="#" class="bg-custom-blue text-white px-4 py-2 rounded-md font-medium hover:bg-custom-blue-darker transition duration-300 shadow-md flex items-center justify-center">Accueil</a>
+                <a href="#services" class="bg-custom-blue text-white px-4 py-2 rounded-md font-medium hover:bg-custom-blue-darker transition duration-300 shadow-md flex items-center justify-center">Services</a>
+                <a href="#comment-ca-marche" class="bg-custom-blue text-white px-4 py-2 rounded-md font-medium hover:bg-custom-blue-darker transition duration-300 shadow-md flex items-center justify-center">Comment ça marche ?</a>
+                <a href="#pourquoi-nous" class="bg-custom-blue text-white px-4 py-2 rounded-md font-medium hover:bg-custom-blue-darker transition duration-300 shadow-md flex items-center justify-center">Pourquoi nous ?</a>
+                <a href="#faq" class="bg-custom-blue text-white px-4 py-2 rounded-md font-medium hover:bg-custom-blue-darker transition duration-300 shadow-md flex items-center justify-center">FAQ</a>
+                <a href="#contact" class="bg-custom-blue text-white px-4 py-2 rounded-md font-medium hover:bg-custom-blue-darker transition duration-300 shadow-md flex items-center justify-center">Demandez un Devis</a>
+            </nav>
+            <button id="mobile-menu-button" class="md:hidden text-gray-600 focus:outline-none">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+                </svg>
+            </button>
+        </div>
+        <nav id="mobile-menu" class="md:hidden bg-white mt-4 space-y-2 px-4 py-2 rounded-lg shadow-lg hidden">
+            <a href="#" class="block text-center bg-custom-blue text-white font-medium py-2 px-5 rounded-md hover:bg-custom-blue-darker transition duration-300 shadow-md">Accueil</a>
+            <a href="#services" class="block text-center bg-custom-blue text-white font-medium py-2 px-5 rounded-md hover:bg-custom-blue-darker transition duration-300 shadow-md">Services</a>
+            <a href="#comment-ca-marche" class="block text-center bg-custom-blue text-white font-medium py-2 px-5 rounded-md hover:bg-custom-blue-darker transition duration-300 shadow-md">Comment ça marche ?</a>
+            <a href="#pourquoi-nous" class="block text-center bg-custom-blue text-white font-medium py-2 px-5 rounded-md hover:bg-custom-blue-darker transition duration-300 shadow-md">Pourquoi nous ?</a>
+            <a href="#faq" class="block text-center bg-custom-blue text-white font-medium py-2 px-5 rounded-md hover:bg-custom-blue-darker transition duration-300 shadow-md">FAQ</a>
+            <div class="border-t border-gray-200 pt-4 mt-4 space-y-2">
+                <a href="#contact" class="block text-center bg-custom-blue text-white font-medium py-2 px-5 rounded-md hover:bg-custom-blue-darker transition duration-300 shadow-md">Demandez un Devis</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="pt-32 relative z-10">
+        <section id="accueil" class="relative text-white py-24 md:py-32 overflow-hidden rounded-b-3xl shadow-lg" style="background: linear-gradient(to right, #000086, #000064);">
+            <div class="absolute inset-0 z-0 opacity-3" style="background-image: url('images/hero-background.jpg'); background-size: cover; background-position: center;"></div>
+            <div class="container mx-auto text-center px-6 relative z-10">
+                <h1 class="text-4xl md:text-6xl font-extrabold leading-tight mb-6 animate-fade-in-down">
+                    Importez Votre Véhicule de Rêve d'Europe
+                </h1>
+                <p class="text-lg md:text-xl mb-10 max-w-3xl mx-auto opacity-90 animate-fade-in-up">
+                    Accédez à un vaste choix de véhicules de qualité, à des prix avantageux. Nous gérons tout, du début à la fin.
+                </p>
+                <a href="#contact" class="inline-block bg-white text-custom-blue hover:bg-gray-100 font-bold py-3 px-8 rounded-full shadow-lg transition duration-300 ease-in-out transform hover:scale-105 animate-bounce-in">
+                    Obtenez Votre Devis Gratuit
+                </a>
+            </div>
+        </section>
+
+        <section class="py-16 bg-white/80 rounded-3xl shadow-lg mx-auto relative z-20">
+            <div class="container mx-auto px-6">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+                    <div class="p-6 bg-gray-50/80 rounded-lg shadow-md hover:shadow-xl transition duration-300 transform hover:-translate-y-1">
+                        <div class="text-custom-blue text-4xl mb-4">🚗</div>
+                        <h3 class="text-xl font-semibold mb-2">Accès au Marché Européen</h3>
+                        <p class="text-gray-600">Un choix illimité de véhicules, souvent à des prix plus compétitifs.</p>
+                    </div>
+                    <div class="p-6 bg-gray-50/80 rounded-lg shadow-md hover:shadow-xl transition duration-300 transform hover:-translate-y-1">
+                        <div class="text-custom-blue text-4xl mb-4">⏱️</div>
+                        <h3 class="text-xl font-semibold mb-2">Gain de Temps et Sérénité</h3>
+                        <p class="text-gray-600">Nous gérons toutes les complexités administratives et logistiques.</p>
+                    </div>
+                    <div class="p-6 bg-gray-50/80 rounded-lg shadow-md hover:shadow-xl transition duration-300 transform hover:-translate-y-1">
+                        <div class="text-custom-blue text-4xl mb-4">🔒</div>
+                        <h3 class="text-xl font-semibold mb-2">Transparence et Sécurité</h3>
+                        <p class="text-gray-600">Pas de frais cachés, vérifications rigoureuses et processus sécurisé.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="services" class="py-20 bg-gray-50/80">
+            <div class="container mx-auto px-6 text-center">
+                <h2 class="text-3xl md:text-4xl font-bold mb-12 text-custom-blue">Nos Services Complets</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+                    <div class="bg-white/80 p-8 rounded-lg shadow-lg hover:shadow-xl transition duration-300 transform hover:scale-105">
+                        <div class="text-custom-blue text-5xl mb-4">🔍</div>
+                        <h3 class="text-2xl font-semibold mb-4">Recherche et Sélection</h3>
+                        <p class="text-gray-700">Accompagnement personnalisé pour trouver le véhicule qui correspond exactement à vos critères et à votre budget parmi des milliers d'offres européennes.</p>
+                    </div>
+                    <div class="bg-white/80 p-8 rounded-lg shadow-lg hover:shadow-xl transition duration-300 transform hover:scale-105">
+                        <div class="text-custom-blue text-5xl mb-4">🤝</div>
+                        <h3 class="text-2xl font-semibold mb-4">Négociation et Achat</h3>
+                        <p class="text-gray-700">Nous négocions le meilleur prix pour vous et sécurisons la transaction avec des professionnels fiables, en garantissant la conformité des documents.</p>
+                    </div>
+                    <div class="bg-white/80 p-8 rounded-lg shadow-lg hover:shadow-xl transition duration-300 transform hover:scale-105">
+                        <div class="text-custom-blue text-5xl mb-4">🚢</div>
+                        <h3 class="text-2xl font-semibold mb-4">Logistique et Transport</h3>
+                        <p class="text-gray-700">Organisation du transport sécurisé de votre véhicule depuis l'Europe jusqu'à votre domicile, avec assurance incluse pour une tranquillité d'esprit totale.</p>
+                    </div>
+                    <div class="bg-white/80 p-8 rounded-lg shadow-lg hover:shadow-xl transition duration-300 transform hover:scale-105">
+                        <div class="text-custom-blue text-5xl mb-4">📄</div>
+                        <h3 class="text-2xl font-semibold mb-4">Formalités Administratives</h3>
+                        <p class="text-gray-700">Gestion complète de toutes les démarches douanières, obtention du quitus fiscal et du certificat de conformité (COC) nécessaires à l'importation.</p>
+                    </div>
+                    <div class="bg-white/80 p-8 rounded-lg shadow-lg hover:shadow-xl transition duration-300 transform hover:scale-105">
+                        <div class="text-custom-blue text-5xl mb-4">🏷️</div>
+                        <h3 class="text-2xl font-semibold mb-4">Immatriculation</h3>
+                        <p class="text-gray-700">Accompagnement et assistance pour l'immatriculation de votre véhicule en France, afin que yous puissiez prendre la route sans délai.</p>
+                    </div>
+                    <div class="bg-white/80 p-8 rounded-lg shadow-lg hover:shadow-xl transition duration-300 transform hover:scale-105">
+                        <div class="text-custom-blue text-5xl mb-4">✨</div>
+                        <h3 class="text-2xl font-semibold mb-4">Services Complémentaires</h3>
+                        <p class="text-gray-700">Possibilité de garantie étendue, préparation esthétique, ou livraison à domicile pour une expérience sur mesure.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="comment-ca-marche" class="py-20 bg-white/80">
+            <div class="container mx-auto px-6 text-center">
+                <h2 class="text-3xl md:text-4xl font-bold mb-12 text-custom-blue">Notre Processus Simple en 4 Étapes</h2>
+                <div class="relative flex flex-col items-center">
+                    <div class="absolute hidden md:block w-1 bg-custom-blue-light rounded-full left-1/2 transform -translate-x-1/2" style="top: 24px; bottom: 24px;"></div>
+
+                    <div class="flex flex-col md:flex-row items-center justify-center w-full mb-12">
+                        <div class="md:w-1/2 px-4 text-right md:pr-12">
+                            <h3 class="text-2xl font-semibold text-custom-blue mb-2">📝 1. Définissez Votre Projet</h3>
+                            <p class="text-gray-700">Utilisez notre formulaire de devis pour nous indiquer le véhicule de vos rêves et vos critères spécifiques.</p>
+                        </div>
+                        <div class="relative z-10 bg-custom-blue text-white rounded-full w-12 h-12 flex items-center justify-center text-xl font-bold shadow-lg md:mx-0 mx-auto mt-4 md:mt-0">1</div>
+                        <div class="md:w-1/2 px-4 text-left md:pl-12 hidden md:block"></div>
+                    </div>
+
+                    <div class="flex flex-col md:flex-row-reverse items-center justify-center w-full mb-12">
+                        <div class="md:w-1/2 px-4 text-left md:pl-12">
+                            <h3 class="text-2xl font-semibold text-custom-blue mb-2">
+                                <span class="text-custom-blue text-5xl mb-4 inline-block align-middle">🔎</span>
+                                2. Recherche et Validation
+                            </h3>
+                            <p class="text-gray-700">Nous recherchons, vérifions et vous proposons les meilleures offres. Vous validez le véhicule choisi.</p>
+                        </div>
+                        <div class="relative z-10 bg-custom-blue text-white rounded-full w-12 h-12 flex items-center justify-center text-xl font-bold shadow-lg md:mx-0 mx-auto mt-4 md:mt-0">2</div>
+                        <div class="md:w-1/2 px-4 text-right md:pr-12 hidden md:block"></div>
+                    </div>
+
+                    <div class="flex flex-col md:flex-row items-center justify-center w-full mb-12">
+                        <div class="md:w-1/2 px-4 text-right md:pr-12">
+                            <h3 class="text-2xl font-semibold text-custom-blue mb-2">📄 3. Importation et Formalités</h3>
+                            <p class="text-gray-700">Nous gérons le transport sécurisé, les douanes, la TVA et toutes les formalités administratives.</p>
+                        </div>
+                        <div class="relative z-10 bg-custom-blue text-white rounded-full w-12 h-12 flex items-center justify-center text-xl font-bold shadow-lg md:mx-0 mx-auto mt-4 md:mt-0">3</div>
+                        <div class="md:w-1/2 px-4 text-left md:pl-12 hidden md:block"></div>
+                    </div>
+
+                    <div class="flex flex-col md:flex-row-reverse items-center justify-center w-full">
+                        <div class="md:w-1/2 px-4 text-left md:pl-12">
+                            <h3 class="text-2xl font-semibold text-custom-blue mb-2">🔑 4. Livraison Clé en Main</h3>
+                            <p class="text-gray-700">Votre véhicule est livré et prêt à être immatriculé. Profitez de votre nouvelle voiture sans tracas !</p>
+                        </div>
+                        <div class="relative z-10 bg-custom-blue text-white rounded-full w-12 h-12 flex items-center justify-center text-xl font-bold shadow-lg md:mx-0 mx-auto mt-4 md:mt-0">4</div>
+                        <div class="md:w-1/2 px-4 text-right md:pr-12 hidden md:block"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="pourquoi-nous" class="py-20 bg-gray-50/80">
+            <div class="container mx-auto px-6 text-center">
+                <h2 class="text-3xl md:text-4xl font-bold mb-12 text-custom-blue">Pourquoi Choisir Auto La Stoa ?</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="bg-white/80 p-6 rounded-lg shadow-md flex items-start text-left">
+                        <div class="text-custom-blue text-3xl mr-4">🌟</div>
+                        <div>
+                            <h3 class="text-xl font-semibold mb-2">Expertise Inégalée</h3>
+                            <p class="text-gray-700">Des années d'expérience dans l'importation, une connaissance approfondie du marché européen et des réglementations.</p>
+                        </div>
+                    </div>
+                    <div class="bg-white/80 p-6 rounded-lg shadow-md flex items-start text-left">
+                        <div class="text-custom-blue text-3xl mr-4">✅</div>
+                        <div>
+                            <h3 class="text-xl font-semibold mb-2">Transparence Totale</h3>
+                            <p class="text-gray-700">Pas de frais cachés. Un devis clair et détaillé pour chaque étape du processus.</p>
+                        </div>
+                    </div>
+                    <div class="bg-white/80 p-6 rounded-lg shadow-md flex items-start text-left">
+                        <div class="text-custom-blue text-3xl mr-4">🤝</div>
+                        <div>
+                            <h3 class="text-xl font-semibold mb-2">Accompagnement Personnalisé</h3>
+                            <p class="text-gray-700">Un interlocuteur unique dédié à votre projet, du début à la livraison.</p>
+                        </div>
+                    </div>
+                    <div class="bg-white/80 p-6 rounded-lg shadow-md flex items-start text-left">
+                        <div class="text-custom-blue text-3xl mr-4">🛡️</div>
+                        <div>
+                            <h3 class="text-xl font-semibold mb-2">Sécurité Garantie</h3>
+                            <p class="text-gray-700">Vérification rigoureuse des véhicules et transport assuré pour votre tranquillité.</p>
+                        </div>
+                    </div>
+                    <div class="bg-white/80 p-6 rounded-lg shadow-md flex items-start text-left">
+                        <div class="text-custom-blue text-3xl mr-4">💰</div>
+                        <div>
+                            <h3 class="text-xl font-semibold mb-2">Optimisation des Coûts</h3>
+                            <p class="text-gray-700">Accédez aux meilleures offres et économisez sur l'achat de votre véhicule.</p>
+                        </div>
+                    </div>
+                    <div class="bg-white/80 p-6 rounded-lg shadow-md flex items-start text-left">
+                        <div class="text-custom-blue text-3xl mr-4">⭐</div>
+                        <div>
+                            <h3 class="text-xl font-semibold mb-2">Satisfaction Client</h3>
+                            <p class="text-gray-700">Notre priorité est votre entière satisfaction. Des centaines de clients satisfaits.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-16 flex justify-center">
+                    <img src="images/quality-car.jpg" alt="Voiture de qualité importée d'Europe" class="rounded-lg shadow-xl max-w-full h-auto">
+                </div>
+            </div>
+        </section>
+
+        <section class="py-20 bg-white/80">
+            <div class="container mx-auto px-6 text-center">
+                <h2 class="text-3xl md:text-4xl font-bold mb-12 text-custom-blue">Ce que nos clients disent</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="bg-gray-50/80 p-8 rounded-lg shadow-md text-left">
+                        <p class="italic text-gray-700 mb-4">"Service impeccable du début à la fin ! J'ai pu importer la voiture de mes rêves sans aucun stress. L'équipe a géré toutes les démarches avec un professionnalisme exemplaire. Je recommande vivement !"</p>
+                        <p class="font-semibold text-custom-blue">- Jean Dupont, Paris</p>
+                    </div>
+                    <div class="bg-gray-50/80 p-8 rounded-lg shadow-md text-left">
+                        <p class="italic text-gray-700 mb-4">"J'étais sceptique à l'idée d'importer une voiture, mais Auto La Stoa a rendu le processus incroyablement simple. Transparence totale sur les coûts et excellent suivi. Merci encore !"</p>
+                        <p class="font-semibold text-custom-blue">- Marie Lefebvre, Lyon</p>
+                    </div>
+                    <div class="bg-gray-50/80 p-8 rounded-lg shadow-md text-left md:block hidden">
+                        <p class="italic text-gray-700 mb-4">"Professionnels, réactifs et efficaces. Ma voiture est arrivée en parfait état et toutes les formalités ont été gérées sans accroc. Un service 5 étoiles !"</p>
+                        <p class="font-semibold text-custom-blue">- Paul Martin, Marseille</p>
+                    </div>
+                    <div class="bg-gray-50/80 p-8 rounded-lg shadow-md text-left md:block hidden">
+                        <p class="italic text-gray-700 mb-4">"Grâce à eux, j'ai trouvé une voiture avec des options introuvables en France, et à un prix imbattable. Le processus a été fluide et les conseils précieux."</p>
+                        <p class="font-semibold text-custom-blue">- Sophie Dubois, Bordeaux</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="faq" class="py-20 bg-gray-50/80">
+            <div class="container mx-auto px-6 text-center">
+                <h2 class="text-3xl md:text-4xl font-bold mb-12 text-custom-blue">Questions Fréquemment Posées</h2>
+                <div class="max-w-3xl mx-auto text-left">
+                    <div class="bg-white/80 p-6 rounded-lg shadow-md mb-4">
+                        <h3 class="text-xl font-semibold text-custom-blue mb-2">Combien de temps prend une importation ?</h3>
+                        <p class="text-gray-700">Le délai varie généralement entre 2 et 4 semaines, selon la provenance du véhicule et la rapidité des formalités administratives. Nous vous tenons informé à chaque étape.</p>
+                    </div>
+                    <div class="bg-white/80 p-6 rounded-lg shadow-md mb-4">
+                        <h3 class="text-xl font-semibold text-custom-blue mb-2">Quels sont les coûts additionnels à prévoir ?</h3>
+                        <p class="text-gray-700">En plus du prix du véhicule et de nos frais de service, il faut prévoir la TVA (si le véhicule n'est pas déjà acquitté en Europe), les frais de douane (si hors UE), le quitus fiscal et les frais d'immatriculation (carte grise).</p>
+                    </div>
+                    <div class="bg-white/80 p-6 rounded-lg shadow-md mb-4">
+                        <h3 class="text-xl font-semibold text-custom-blue mb-2">Le véhicule est-il garanti ?</h3>
+                        <p class="text-gray-700">Oui, la plupart des véhicules récents importés bénéficient de la garantie constructeur européenne, valable en France. Nous proposons également des extensions de garantie si vous le souhaitez.</p>
+                    </div>
+                    <div class="bg-white/80 p-6 rounded-lg shadow-md mb-4">
+                        <h3 class="text-xl font-semibold text-custom-blue mb-2">Comment se passe le paiement ?</h3>
+                        <p class="text-gray-700">Le paiement est sécurisé et échelonné. Un acompte est demandé pour la recherche et la validation, puis le solde lors de la livraison ou de la prise en charge du véhicule.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="relative text-white py-16 text-center rounded-t-3xl shadow-lg overflow-hidden" style="background: linear-gradient(to right, #000064, #000086);">
+            <div class="absolute inset-0 z-0 opacity-5" style="background-image: url('images/europe-map-bg.png'); background-size: cover; background-position: center;"></div>
+            <div class="container mx-auto px-6 relative z-10">
+                <h2 class="text-3xl md:text-4xl font-bold mb-6">Prêt à importer votre prochaine voiture ?</h2>
+                <p class="text-lg md:text-xl mb-8 opacity-90">Contactez-nous dès aujourd'hui pour un devis personnalisé et sans engagement.</p>
+                <a href="#contact" class="inline-block bg-white text-custom-blue hover:bg-gray-100 font-bold py-3 px-8 rounded-full shadow-lg transition duration-300 ease-in-out transform hover:scale-105">
+                    Obtenez Votre Devis Gratuit
+                </a>
+            </div>
+        </section>
+
+        <section id="contact" class="py-20 bg-white/80">
+            <div class="container mx-auto px-6 text-center">
+                <h2 class="text-3xl md:text-4xl font-bold mb-12 text-custom-blue">Obtenez Votre Devis Gratuit</h2>
+                <div class="max-w-2xl mx-auto bg-gray-50/80 p-8 rounded-lg shadow-lg">
+                    <form id="contactForm" action="https://docs.google.com/forms/d/e/1FAIpQLSeUSJkV04Uy1EcDnG7xGiLGc74_ty87AsYzt6KuWdXMYxHUYQ/formResponse" method="POST" target="_blank" class="space-y-6">
+                        <div>
+                            <label for="name" class="block text-left text-gray-700 font-semibold mb-2">Nom Complet</label>
+                            <input type="text" id="name" name="entry.1266480385" class="w-full p-3 border border-gray-300 rounded-md focus:ring-custom-blue focus:border-custom-blue" placeholder="Votre nom et prénom" required>
+                        </div>
+                        <div>
+                            <label for="email" class="block text-left text-gray-700 font-semibold mb-2">Adresse Email</label>
+                            <input type="email" id="email" name="entry.1381520928" class="w-full p-3 border border-gray-300 rounded-md focus:ring-custom-blue focus:border-custom-blue" placeholder="votre.email@example.com" required>
+                        </div>
+                        <div>
+                            <label for="phone" class="block text-left text-gray-700 font-semibold mb-2">Numéro de Téléphone</label>
+                            <input type="tel" id="phone" name="entry.1577090415" class="w-full p-3 border border-gray-300 rounded-md focus:ring-custom-blue focus:border-custom-blue" placeholder="06 XX XX XX XX" pattern="[0-9]{10}" title="Veuillez entrer un numéro de téléphone à 10 chiffres (par exemple : 0612345678)." required>
+                        </div>
+                        <div>
+                            <label for="vehicle" class="block text-left text-gray-700 font-semibold mb-2">Véhicule Désiré (Marque, Modèle, Année, Kilométrage max, Budget)</label>
+                            <textarea id="vehicle" name="entry.1322431296" rows="4" class="w-full p-3 border border-gray-300 rounded-md focus:ring-custom-blue focus:border-custom-blue" placeholder="Ex: Peugeot 308, 2020+, <50 000 km, budget 15 000 - 18 000€"></textarea>
+                        </div>
+                        <div>
+                            <label for="message" class="block text-left text-gray-700 font-semibold mb-2">Votre Message</label>
+                            <textarea id="message" name="entry.1893411838" rows="4" class="w-full p-3 border border-gray-300 rounded-md focus:ring-custom-blue focus:border-custom-blue" placeholder="Des questions spécifiques ?"></textarea>
+                        </div>
+                        <button type="submit" class="w-full bg-custom-blue text-white font-bold py-3 px-6 rounded-md hover:bg-custom-blue-darker transition duration-300 transform hover:scale-105 shadow-md">
+                            Envoyer Ma Demande de Devis
+                        </button>
+                    </form>
+                    <div id="formSuccessMessage" class="hidden mt-4 p-4 bg-green-100 text-green-700 rounded-md shadow-sm">
+                        Votre demande a été envoyée avec succès ! Nous vous contacterons bientôt.
+                    </div>
+                    <div id="formErrorMessage" class="hidden mt-4 p-4 bg-red-100 text-red-700 rounded-md shadow-sm">
+                        Veuillez corriger les erreurs dans le formulaire.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-gray-800 text-white py-10 px-6 rounded-t-3xl relative z-10">
+        <div class="container mx-auto text-center md:flex md:justify-between md:items-center">
+            <div class="mb-6 md:mb-0">
+                <p>&copy; 2025 Auto La Stoa. Tous droits réservés.</p>
+            </div>
+            <nav class="mb-6 md:mb-0 md:space-x-6 space-y-2 md:space-y-0">
+                <a href="#mentions-legales" class="block md:inline-block text-gray-300 hover:text-white">Mentions Légales</a>
+                <a href="#politique-confidentialite" class="block md:inline-block text-gray-300 hover:text-white">Politique de Confidentialité</a>
+            </nav>
+            <div class="flex justify-center space-x-4">
+                <a href="#" class="text-gray-300 hover:text-white text-2xl" aria-label="Facebook">
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M14 13.5h2.5l1-4H14v-2c0-1.5 0.49-2.5 2.5-2.5H18V.5c-.41-.05-.82-.08-1.24-.08C14.16.42 12.5 2.05 12.5 5.25V8H10v4h2.5v7.5h3.5V13.5z"/></svg>
+                </a>
+                <a href="#" class="text-gray-300 hover:text-white text-2xl" aria-label="Instagram">
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4c0 3.2-2.6 5.8-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8C2 4.6 4.6 2 7.8 2zm-.2 2A2.6 2.6 0 005 7.6v8.8A2.6 2.6 0 007.6 19h8.8a2.6 2.6 0 002.6-2.6V7.6A2.6 2.6 0 0016.4 5H7.6zM12 7a5 5 0 100 10 5 5 0 000-10zm0 2a3 3 0 110 6 3 3 0 010-6zm6.5-3a1.25 1.25 0 100 2.5 1.25 1.25 0 000-2.5z"/></svg>
+                </a>
+                <a href="#" class="text-gray-300 hover:text-white text-2xl" aria-label="LinkedIn">
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.044-1.852-3.044-1.853 0-2.136 1.445-2.136 2.955v5.658H9.276V9.276h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.064-2.062 2.062 2.062 0 012.064-2.063 2.062 2.062 0 012.063 2.063 2.062 2.062 0 01-2.063 2.062zm1.787 13.019H3.55v-11.1h3.574v11.1zM22.227 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.456c.98 0 1.772-.773 1.772-1.729V1.729C24 .774 23.207 0 22.227 0z"/></svg>
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // JavaScript pour le menu mobile
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Fermer le menu mobile lors du clic sur un lien
+        mobileMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+
+        // Animations CSS (ajouter des classes pour les déclencher)
+        document.addEventListener('DOMContentLoaded', () => {
+            const heroHeadline = document.querySelector('.animate-fade-in-down');
+            const heroSubheadline = document.querySelector('.animate-fade-in-up');
+            const heroCta = document.querySelector('.animate-bounce-in');
+
+            // Ajoutez des classes de début d'animation si elles ne sont pas déjà là
+            heroHeadline.style.animation = 'fadeInDown 1s ease-out forwards';
+            heroSubheadline.style.animation = 'fadeInUp 1s ease-out 0.3s forwards';
+            heroCta.style.animation = 'bounceIn 1s ease-out 0.6s forwards';
+        });
+
+        // Gestion de la soumission du formulaire pour Google Sheets
+        const contactForm = document.getElementById('contactForm');
+        const formSuccessMessage = document.getElementById('formSuccessMessage');
+        const formErrorMessage = document.getElementById('formErrorMessage'); // Nouvelle div pour les messages d'erreur
+
+        contactForm.addEventListener('submit', async (e) => {
+            e.preventDefault(); // Empêche la soumission par défaut du formulaire (et la redirection)
+
+            // Cacher les messages précédents
+            formSuccessMessage.classList.add('hidden');
+            formErrorMessage.classList.add('hidden');
+
+            // Valider les champs manuellement
+            let isValid = true;
+
+            // Validation du numéro de téléphone
+            const phoneInput = document.getElementById('phone');
+            const phonePattern = /^[0-9]{10}$/; // Regex pour exactement 10 chiffres
+            if (!phonePattern.test(phoneInput.value)) {
+                isValid = false;
+                phoneInput.classList.add('border-red-500'); // Mettre en évidence le champ en erreur
+            } else {
+                phoneInput.classList.remove('border-red-500');
+            }
+
+            // Validation de l'adresse email (le type="email" gère déjà une bonne partie)
+            const emailInput = document.getElementById('email');
+            if (!emailInput.checkValidity()) { // Utilise la validation native du navigateur
+                isValid = false;
+                emailInput.classList.add('border-red-500');
+            } else {
+                emailInput.classList.remove('border-red-500');
+            }
+
+            if (!isValid) {
+                formErrorMessage.classList.remove('hidden'); // Afficher le message d'erreur
+                return; // Arrêter la soumission si la validation échoue
+            }
+
+            const formData = new FormData(contactForm);
+            const formUrl = contactForm.action;
+
+            try {
+                // Envoi des données au Google Form
+                const response = await fetch(formUrl, {
+                    method: 'POST',
+                    body: formData,
+                    mode: 'no-cors' // Important pour éviter les erreurs CORS avec Google Forms
+                });
+
+                // Afficher le message de succès
+                formSuccessMessage.classList.remove('hidden');
+                contactForm.reset(); // Réinitialiser le formulaire après l'envoi
+
+                // Cacher le message après quelques secondes
+                setTimeout(() => {
+                    formSuccessMessage.classList.add('hidden');
+                }, 5000);
+
+            } catch (error) {
+                console.error('Erreur lors de l\'envoi du formulaire :', error);
+                formErrorMessage.textContent = "Une erreur est survenue lors de l'envoi. Veuillez réessayer.";
+                formErrorMessage.classList.remove('hidden');
+            }
+        });
+    </script>
+</body>
+</html>
