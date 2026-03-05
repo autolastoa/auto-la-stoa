@@ -3,466 +3,1215 @@
 <head>
   <link rel="icon" href="/favicon.ico" type="image/x-icon">
   <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
-  <!-- Icônes modernes (PNG + Apple + haut DPI) -->
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-  <link rel="manifest" href="/site.webmanifest"> <!-- optionnel mais propre -->
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-QG2EE0MX9S"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+  <link rel="manifest" href="/site.webmanifest">
 
-  gtag('config', 'G-QG2EE0MX9S');
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-QG2EE0MX9S"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-QG2EE0MX9S');
+  </script>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Auto La Stoa – Achat, Vente & Import de véhicules</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --blue:      #000086;
+      --blue-dark: #00005a;
+      --blue-mid:  #0000b8;
+      --accent:    #e8c84a;
+      --text:      #1a1a2e;
+      --muted:     #6b7280;
+      --surface:   #f7f7fb;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Sora', sans-serif; background: var(--surface); color: var(--text); line-height: 1.6; }
+
+    ::-webkit-scrollbar { width: 7px; }
+    ::-webkit-scrollbar-track { background: #e5e7eb; }
+    ::-webkit-scrollbar-thumb { background: var(--blue); border-radius: 10px; }
+
+    /* ══ HEADER ══ */
+    header {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: white;
+      border-bottom: 1px solid #e8eaf0;
+      transition: box-shadow .3s;
+    }
+    header.scrolled {
+      box-shadow: 0 2px 16px rgba(0,0,0,.08);
+    }
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 8px 40px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .logo-wrap { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+    .logo-wrap img { height: 68px; width: 68px; border-radius: 50%; object-fit: cover; box-shadow: 0 2px 8px rgba(0,0,0,.12); }
+    .logo-text strong { display: block; font-size: .95rem; font-weight: 700; color: var(--blue); }
+    .logo-text span { display: block; font-size: .72rem; color: var(--muted); letter-spacing: .06em; }
+
+    /* ── Tab label ── */
+    .tab-label {
+      font-size: .72rem;
+      color: var(--muted);
+      letter-spacing: .07em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    /* ── Service tabs ── */
+    .service-tabs {
+      display: flex;
+      gap: 4px;
+      background: #f0f0f8;
+      border-radius: 10px;
+      padding: 4px;
+    }
+    .tab-btn {
+      padding: 8px 20px;
+      border-radius: 7px;
+      border: none;
+      background: none;
+      font-family: 'Sora', sans-serif;
+      font-size: .85rem;
+      font-weight: 600;
+      color: var(--muted);
+      cursor: pointer;
+      transition: background .2s, color .2s, box-shadow .2s;
+      letter-spacing: .02em;
+      white-space: nowrap;
+    }
+    .tab-btn:hover { color: var(--blue); background: rgba(255,255,255,.8); }
+    .tab-btn.active {
+      background: var(--blue);
+      color: white;
+      box-shadow: 0 3px 10px rgba(0,0,134,.22);
+    }
+
+    /* ── Fixed blue subnav bar ── */
+    #import-subnav {
+      position: fixed;
+      left: 0; right: 0; z-index: 99;
+      background: var(--blue);
+      border-bottom: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 2px;
+      padding: 0 40px;
+      transition: opacity .25s, visibility .25s;
+    }
+
+    /* Secondary nav links (for Import section) */
+    .sub-nav { display: flex; align-items: center; gap: 2px; }
+    .nav-link {
+      color: var(--muted);
+      padding: 8px 14px;
+      border-radius: 8px;
+      font-size: .82rem;
+      font-weight: 500;
+      text-decoration: none;
+      transition: background .2s, color .2s;
+      white-space: nowrap;
+    }
+    .nav-link:hover { background: #eff1ff; color: var(--blue); }
+    .nav-link.cta {
+      background: var(--blue); color: white; padding: 8px 16px; margin-left: 6px;
+    }
+    .nav-link.cta:hover { background: var(--blue-dark); }
+
+    /* Mobile menu */
+    #mobile-menu {
+      max-height: 0; overflow: hidden; opacity: 0;
+      transition: max-height .35s ease, opacity .3s ease;
+      background: white;
+    }
+    #mobile-menu.open { max-height: 500px; opacity: 1; }
+
+    /* ══ PAGE SECTIONS (tab content) ══ */
+    .page { display: none; }
+    .page.active { display: block; }
+
+    /* ══ HERO (Import) ══ */
+    .hero {
+      position: relative; min-height: 100vh; display: flex; align-items: center;
+      overflow: hidden;
+      background: linear-gradient(135deg, var(--blue-dark) 0%, var(--blue) 55%, var(--blue-mid) 100%);
+    }
+    .hero::before {
+      content: ''; position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse 60% 50% at 80% 20%, rgba(232,200,74,.12) 0%, transparent 60%),
+        radial-gradient(ellipse 40% 60% at 10% 80%, rgba(255,255,255,.05) 0%, transparent 60%);
+    }
+    .hero::after {
+      content: ''; position: absolute; inset: 0;
+      background-image: repeating-linear-gradient(-45deg, transparent, transparent 40px, rgba(255,255,255,.02) 40px, rgba(255,255,255,.02) 41px);
+    }
+    .hero h1 {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(2.4rem, 5vw, 4.2rem);
+      line-height: 1.15; color: white; margin-bottom: 24px; letter-spacing: -.02em;
+    }
+    .hero h1 em { font-style: italic; color: white; }
+    .hero p { font-size: clamp(.95rem, 1.5vw, 1.1rem); color: rgba(255,255,255,.78); max-width: 540px; margin-bottom: 40px; font-weight: 300; line-height: 1.75; }
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 10px;
+      background: var(--accent); color: var(--text);
+      font-weight: 700; font-size: .9rem; padding: 14px 32px;
+      border-radius: 100px; text-decoration: none; letter-spacing: .04em;
+      transition: transform .2s, box-shadow .2s, background .2s;
+      box-shadow: 0 8px 32px rgba(232,200,74,.35);
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 14px 40px rgba(232,200,74,.5); background: #f5d84e; }
+    .btn-secondary {
+      display: inline-flex; align-items: center; gap: 8px;
+      color: rgba(255,255,255,.85); font-size: .9rem; font-weight: 500;
+      padding: 14px 24px; border-radius: 100px; text-decoration: none;
+      border: 1.5px solid rgba(255,255,255,.25);
+      transition: background .2s, border-color .2s, color .2s;
+    }
+    .btn-secondary:hover { background: rgba(255,255,255,.1); border-color: rgba(255,255,255,.5); color: white; }
+    .hero-stats {
+      display: flex; gap: 40px; margin-top: 52px; padding-top: 40px;
+      border-top: 1px solid rgba(255,255,255,.12);
+    }
+    .hero-stat-num { font-family: 'DM Serif Display', serif; font-size: 2rem; color: white; display: block; line-height: 1; }
+    .hero-stat-label { font-size: .78rem; color: rgba(255,255,255,.55); text-transform: uppercase; letter-spacing: .1em; margin-top: 4px; display: block; }
+    .hero-card {
+      background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.15);
+      border-radius: 16px; padding: 20px 24px; backdrop-filter: blur(8px);
+      display: flex; align-items: center; gap: 16px;
+      animation: floatY 4s ease-in-out infinite;
+    }
+    .hero-card:nth-child(2) { animation-delay: -2s; margin-left: 32px; }
+    .hero-card:nth-child(3) { animation-delay: -1s; }
+    .hero-card-icon { font-size: 1.8rem; width: 48px; height: 48px; display: flex; align-items: center; justify-content: center; background: rgba(232,200,74,.15); border-radius: 12px; flex-shrink: 0; }
+    .hero-card-text strong { color: white; font-size: .9rem; display: block; }
+    .hero-card-text span { color: rgba(255,255,255,.55); font-size: .78rem; }
+    @keyframes floatY { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+
+    /* ══ GENERIC SECTION STYLES ══ */
+    .section-label {
+      display: inline-block; font-size: .72rem; font-weight: 700; letter-spacing: .15em;
+      text-transform: uppercase; color: var(--blue); background: #eff1ff;
+      padding: 5px 14px; border-radius: 100px; margin-bottom: 12px;
+    }
+    .section-title {
+      font-family: 'DM Serif Display', serif; font-size: clamp(1.8rem, 3vw, 2.6rem);
+      color: var(--text); letter-spacing: -.02em; line-height: 1.2;
+    }
+    .section-title span { color: var(--blue); }
+
+    /* ══ SERVICE CARDS ══ */
+    .service-card {
+      background: white; border-radius: 16px; padding: 32px;
+      box-shadow: 0 2px 12px rgba(0,0,0,.05); border: 1.5px solid #e8eaf0;
+      transition: box-shadow .3s, transform .3s, border-color .3s;
+      position: relative; overflow: hidden;
+    }
+    .service-card::before {
+      content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 4px;
+      background: var(--blue); transform: scaleY(0); transform-origin: bottom;
+      transition: transform .3s ease;
+    }
+    .service-card:hover { box-shadow: 0 12px 40px rgba(0,0,134,.1); transform: translateY(-4px); border-color: #c7cae8; }
+    .service-card:hover::before { transform: scaleY(1); }
+    .service-card-icon { width: 56px; height: 56px; background: #eff1ff; border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 1.6rem; margin-bottom: 20px; transition: background .3s; }
+    .service-card:hover .service-card-icon { background: var(--blue); }
+    .service-card h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 10px; }
+    .service-card p { font-size: .875rem; color: var(--muted); line-height: 1.7; }
+
+    /* ══ STEPS ══ */
+    .step-item { display: flex; gap: 24px; align-items: flex-start; }
+    .step-num {
+      width: 56px; height: 56px; background: var(--blue); color: white;
+      border-radius: 14px; display: flex; align-items: center; justify-content: center;
+      font-family: 'DM Serif Display', serif; font-size: 1.4rem; flex-shrink: 0;
+      box-shadow: 0 8px 24px rgba(0,0,134,.25); transition: transform .2s;
+    }
+    .step-item:hover .step-num { transform: scale(1.08) rotate(-3deg); }
+    .step-content h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 6px; }
+    .step-content p { font-size: .875rem; color: var(--muted); line-height: 1.7; }
+    .step-connector { width: 2px; height: 40px; background: linear-gradient(to bottom, #c7cae8, transparent); margin-left: 27px; }
+
+    /* ══ WHY CARDS ══ */
+    .why-card { display: flex; gap: 16px; align-items: flex-start; padding: 24px; background: white; border-radius: 14px; border: 1.5px solid #e8eaf0; transition: box-shadow .25s, border-color .25s; }
+    .why-card:hover { box-shadow: 0 8px 28px rgba(0,0,134,.08); border-color: #c7cae8; }
+    .why-icon { width: 44px; height: 44px; background: #eff1ff; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; flex-shrink: 0; }
+    .why-card h3 { font-size: 1rem; font-weight: 700; margin-bottom: 4px; }
+    .why-card p { font-size: .845rem; color: var(--muted); line-height: 1.6; }
+    @media (max-width: 900px) {
+      .why-grid-3 { grid-template-columns: repeat(2,1fr) !important; }
+    }
+    @media (max-width: 560px) {
+      .why-grid-3 { grid-template-columns: 1fr !important; }
+    }
+
+    /* ══ FAQ ══ */
+    .faq-item { background: white; border-radius: 14px; border: 1.5px solid #e8eaf0; overflow: hidden; transition: border-color .2s; }
+    .faq-item:hover { border-color: #c7cae8; }
+    .faq-question { width: 100%; background: none; border: none; padding: 22px 24px; text-align: left; cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 16px; font-family: 'Sora', sans-serif; font-size: .95rem; font-weight: 600; color: var(--text); }
+    .faq-chevron { width: 28px; height: 28px; background: #eff1ff; border-radius: 8px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: background .2s, transform .3s; color: var(--blue); }
+    .faq-item.open .faq-chevron { transform: rotate(180deg); background: var(--blue); color: white; }
+    .faq-answer { max-height: 0; overflow: hidden; transition: max-height .35s ease; }
+    .faq-answer-inner { padding: 18px 24px 22px; font-size: .875rem; color: var(--muted); line-height: 1.75; border-top: 1px solid #f0f0f5; }
+
+    /* ══ CONTACT FORM ══ */
+    .contact-section { background: linear-gradient(135deg, var(--blue-dark), var(--blue)); }
+    .form-input {
+      width: 100%; padding: 12px 16px; border-radius: 10px; border: 1.5px solid #e8eaf0;
+      font-family: 'Sora', sans-serif; font-size: .875rem; background: white; color: var(--text);
+      transition: border-color .2s, box-shadow .2s; outline: none;
+    }
+    .form-input:focus { border-color: var(--blue); box-shadow: 0 0 0 3px rgba(0,0,134,.1); }
+    .form-input.error { border-color: #ef4444; }
+    .form-label { display: block; font-size: .82rem; font-weight: 600; color: rgba(255,255,255,.9); margin-bottom: 8px; }
+    .btn-submit {
+      width: 100%; background: var(--accent); color: var(--text);
+      font-family: 'Sora', sans-serif; font-weight: 700; font-size: .9rem;
+      padding: 14px; border-radius: 10px; border: none; cursor: pointer;
+      letter-spacing: .04em; transition: background .2s, transform .2s, box-shadow .2s;
+      box-shadow: 0 4px 16px rgba(232,200,74,.3);
+    }
+    .btn-submit:hover { background: #f5d84e; transform: translateY(-1px); box-shadow: 0 8px 24px rgba(232,200,74,.45); }
+    .btn-submit:active { transform: scale(.98); }
+
+    /* ══ TRUST BAND ══ */
+    .trust-band { background: white; border-bottom: 1px solid #e5e7eb; }
+    .trust-item { display: flex; align-items: center; gap: 12px; padding: 24px 0; }
+    .trust-item-icon { width: 44px; height: 44px; background: #eff1ff; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; flex-shrink: 0; }
+    .trust-item h3 { font-weight: 600; font-size: .95rem; }
+    .trust-item p { font-size: .8rem; color: var(--muted); }
+
+    /* ══ ACHAT PAGE ══ */
+    .achat-hero {
+      background: linear-gradient(135deg, #0f0f2e 0%, #000086 100%);
+      padding: clamp(80px,12vw,120px) clamp(16px,4vw,40px) 80px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .achat-hero::before {
+      content: ''; position: absolute; inset: 0;
+      background-image: repeating-linear-gradient(-45deg, transparent, transparent 40px, rgba(255,255,255,.02) 40px, rgba(255,255,255,.02) 41px);
+    }
+    .achat-hero h1 { font-family: 'DM Serif Display', serif; font-size: clamp(2rem, 4vw, 3.2rem); color: white; margin-bottom: 16px; letter-spacing: -.02em; position: relative; z-index: 1; }
+    .achat-hero p { color: rgba(255,255,255,.65); font-size: .95rem; max-width: 480px; margin: 0 auto; position: relative; z-index: 1; line-height: 1.7; }
+    .achat-form-wrap { max-width: 560px; margin: -40px auto 0; background: white; border-radius: 20px; padding: 40px; box-shadow: 0 24px 64px rgba(0,0,0,.12); position: relative; z-index: 10; }
+    .achat-form-label { display: block; font-size: .82rem; font-weight: 600; color: var(--text); margin-bottom: 7px; }
+    .achat-form-input {
+      width: 100%; padding: 11px 15px; border-radius: 9px; border: 1.5px solid #e0e2ec;
+      font-family: 'Sora', sans-serif; font-size: .875rem; color: var(--text); outline: none;
+      transition: border-color .2s, box-shadow .2s; background: #fafafa;
+    }
+    .achat-form-input:focus { border-color: var(--blue); box-shadow: 0 0 0 3px rgba(0,0,134,.08); background: white; }
+    .achat-form-input.error { border-color: #ef4444; }
+    .achat-btn-submit {
+      width: 100%; background: var(--blue); color: white; font-family: 'Sora', sans-serif;
+      font-weight: 700; font-size: .9rem; padding: 14px; border-radius: 10px; border: none;
+      cursor: pointer; letter-spacing: .04em; transition: background .2s, transform .2s;
+      margin-top: 4px;
+    }
+    .achat-btn-submit:hover { background: var(--blue-dark); transform: translateY(-1px); }
+    .form-divider { height: 1px; background: #eceef5; margin: 20px 0; }
+
+    /* ══ VENTE PAGE ══ */
+    .vente-hero {
+      background: linear-gradient(135deg, #0f0f2e 0%, #000086 100%);
+      padding: clamp(80px,12vw,120px) clamp(16px,4vw,40px) 60px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .vente-hero::before {
+      content: ''; position: absolute; inset: 0;
+      background-image: repeating-linear-gradient(-45deg, transparent, transparent 40px, rgba(255,255,255,.02) 40px, rgba(255,255,255,.02) 41px);
+    }
+    .vente-hero h1 { font-family: 'DM Serif Display', serif; font-size: clamp(2rem, 4vw, 3.2rem); color: white; margin-bottom: 12px; letter-spacing: -.02em; position: relative; z-index: 1; }
+    .vente-hero p { color: rgba(255,255,255,.65); font-size: .95rem; max-width: 480px; margin: 0 auto; position: relative; z-index: 1; }
+
+    /* ── Vehicle grid ── */
+    .vehicle-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 24px;
+      padding: 48px 40px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .vehicle-card {
+      width: 320px;
+      flex-shrink: 0;
+      background: white; border-radius: 16px; overflow: hidden;
+      border: 1.5px solid #e8eaf0; transition: box-shadow .3s, transform .3s, border-color .3s;
+    }
+    .vehicle-card:hover { box-shadow: 0 16px 48px rgba(0,0,134,.1); transform: translateY(-4px); border-color: #c7cae8; }
+    .vehicle-img {
+      width: 100%; aspect-ratio: 16/10; object-fit: cover; background: #e8eaf0;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 3rem; color: #b0b4cc;
+    }
+    .vehicle-img img { width: 100%; height: 100%; object-fit: cover; }
+    .vehicle-img.placeholder { background: linear-gradient(135deg, #e8eaf0, #d0d4e8); }
+    .vehicle-body { padding: 20px; }
+    .vehicle-badge {
+      display: inline-block; font-size: .68rem; font-weight: 700; letter-spacing: .1em;
+      text-transform: uppercase; padding: 3px 10px; border-radius: 100px; margin-bottom: 10px;
+    }
+    .vehicle-badge.dispo { background: #d1fae5; color: #065f46; }
+    .vehicle-badge.vendu { background: #fee2e2; color: #991b1b; }
+    .vehicle-badge.reserve { background: #fef3c7; color: #92400e; }
+    .vehicle-title { font-size: 1.05rem; font-weight: 700; margin-bottom: 4px; }
+    .vehicle-sub { font-size: .8rem; color: var(--muted); margin-bottom: 12px; }
+    .vehicle-specs { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 14px; }
+    .vehicle-spec { display: flex; align-items: center; gap: 5px; font-size: .78rem; color: var(--muted); }
+    .vehicle-price { font-family: 'DM Serif Display', serif; font-size: 1.4rem; color: var(--blue); }
+    .vehicle-cta {
+      display: block; text-align: center; margin-top: 14px;
+      background: #eff1ff; color: var(--blue); font-weight: 600; font-size: .82rem;
+      padding: 10px; border-radius: 8px; text-decoration: none;
+      transition: background .2s, color .2s;
+    }
+    .vehicle-cta:hover { background: var(--blue); color: white; }
+
+    /* Empty stock message */
+    .stock-empty { text-align: center; padding: 60px 20px; color: var(--muted); }
+    .stock-empty .icon { font-size: 3rem; margin-bottom: 16px; }
+    .stock-empty h3 { font-size: 1.2rem; font-weight: 600; margin-bottom: 8px; color: var(--text); }
+
+    /* ══ IMPORT IN-HEADER SUBNAV ══ */
+    .header-subnav-link {
+      color: rgba(255,255,255,.75);
+      padding: 10px 16px;
+      font-size: .8rem;
+      font-weight: 500;
+      text-decoration: none;
+      letter-spacing: .03em;
+      border-radius: 6px;
+      transition: background .18s, color .18s;
+      white-space: nowrap;
+    }
+    .header-subnav-link:hover {
+      background: rgba(255,255,255,.12);
+      color: white;
+    }
+    .header-subnav-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--accent);
+      color: var(--text);
+      font-size: .8rem;
+      font-weight: 700;
+      padding: 7px 18px;
+      border-radius: 100px;
+      text-decoration: none;
+      letter-spacing: .03em;
+      transition: background .18s, box-shadow .18s;
+      box-shadow: 0 2px 10px rgba(232,200,74,.3);
+      margin-left: 12px;
+    }
+    .header-subnav-cta:hover {
+      background: #f5d84e;
+      box-shadow: 0 4px 16px rgba(232,200,74,.45);
+    }
+
+    /* ══ FOOTER ══ */
+    footer { background: #0f0f1a; padding: 40px; }
+    .footer-inner { max-width: 1200px; margin: 0 auto; display: flex; flex-direction: column; gap: 20px; align-items: center; }
+    @media(min-width:768px) { .footer-inner { flex-direction: row; justify-content: space-between; } }
+
+    /* ══ ANIMATIONS ══ */
+    @keyframes fadeInDown { from { opacity: 0; transform: translateY(-24px); } to { opacity: 1; transform: none; } }
+    @keyframes fadeInUp   { from { opacity: 0; transform: translateY(24px); }  to { opacity: 1; transform: none; } }
+    @keyframes bounceIn   { 0% { opacity: 0; transform: scale(.8); } 60% { opacity: 1; transform: scale(1.04); } 100% { transform: scale(1); } }
+    @keyframes fadeIn     { from { opacity: 0; } to { opacity: 1; } }
+
+    .anim-down  { animation: fadeInDown .8s ease-out both; }
+    .anim-up    { animation: fadeInUp .8s ease-out .2s both; }
+    .anim-in    { animation: bounceIn .7s ease-out .4s both; }
+
+    .reveal { opacity: 0; transform: translateY(28px); transition: opacity .6s ease, transform .6s ease; }
+    .reveal.visible { opacity: 1; transform: none; }
+
+    /* Page transition */
+    .page { opacity: 0; transition: opacity .3s ease; }
+    .page.active { opacity: 1; }
+
+    /* Mobile */
+    /* ══ RESPONSIVE ══════════════════════════════════════ */
+
+    /* Tablet large (≤1024px) */
+    @media (max-width: 1024px) {
+      .header-inner  { padding: 8px 24px; }
+      #import-subnav { padding: 0 24px; }
+    }
+
+    /* Tablet / phablet (≤768px) */
+    @media (max-width: 768px) {
+      /* Header */
+      .header-inner  { padding: 10px 16px; }
+      #import-subnav { display: none !important; }
+      .service-tabs  { gap: 3px; }
+      .tab-btn       { padding: 8px 12px; font-size: .78rem; }
+
+      /* Hero : 2 col → 1 col */
+      .hero-2col { grid-template-columns: 1fr !important; gap: 32px !important; padding: 28px 0 48px !important; }
+      .hero-visual { display: none !important; }
+      .hero { min-height: auto !important; }
+      .hero h1 { font-size: clamp(1.9rem, 7vw, 2.8rem); }
+      .hero-stats { gap: 20px; flex-wrap: wrap; padding-top: 28px; margin-top: 32px; }
+      .hero-stat-num { font-size: 1.6rem; }
+
+      /* Trust band : 3 col → 1 col */
+      .trust-grid { grid-template-columns: 1fr !important; border-left: none !important; }
+      .trust-col  { border-right: none !important; padding: 16px 20px !important; border-bottom: 1px solid #e5e7eb; }
+      .trust-col:last-child { border-bottom: none; }
+
+      /* All sections : reduce padding */
+      .section-pad { padding: 56px 20px !important; }
+
+      /* Process : 2 col → 1 col */
+      .process-2col { grid-template-columns: 1fr !important; gap: 32px !important; }
+
+      /* Contact : 2 col → 1 col */
+      .contact-2col { grid-template-columns: 1fr !important; gap: 32px !important; }
+
+      /* Why cards */
+      .why-grid-3 { grid-template-columns: 1fr !important; }
+
+      /* Achat / Vente pages */
+      .achat-hero, .vente-hero { padding: 80px 20px 48px; }
+      .achat-form-wrap { margin: -24px 16px 0; padding: 24px 18px; }
+      .form-2col { grid-template-columns: 1fr !important; }
+      .reassurance-3col { grid-template-columns: 1fr !important; }
+
+      /* Vehicle stock */
+      .vehicle-grid { padding: 24px 16px; }
+      .vehicle-card { width: 100%; }
+
+      /* Footer */
+      footer { padding: 28px 16px; }
+    }
+
+    /* Mobile small (≤480px) */
+    @media (max-width: 480px) {
+      .tab-btn       { padding: 7px 10px; font-size: .72rem; letter-spacing: 0; }
+      .service-tabs  { padding: 3px; }
+      .logo-wrap img { height: 52px; width: 52px; }
+      .logo-text strong { font-size: .85rem; }
+      .logo-text span   { font-size: .65rem; }
+      .section-title { font-size: 1.55rem; }
+      .hero h1 { font-size: clamp(1.7rem, 8vw, 2.4rem); }
+      .hero-stats { gap: 16px; }
+      .service-card { padding: 24px 18px; }
+      .why-card { padding: 16px; }
+      .step-num { width: 44px; height: 44px; font-size: 1.1rem; }
+      .achat-hero h1, .vente-hero h1 { font-size: clamp(1.6rem, 7vw, 2.4rem); }
+      .vehicle-grid { padding: 20px 12px; gap: 16px; }
+      footer { padding: 24px 12px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════
+     HEADER
+══════════════════════════════════════ -->
+<!-- ══════════════════════════════════════
+     HEADER
+══════════════════════════════════════ -->
+<header id="main-header">
+  <div class="header-inner">
+    <a href="#" class="logo-wrap">
+      <img src="images/logo-auto-la-stoa.png" alt="Logo Auto La Stoa">
+      <div class="logo-text">
+        <strong>Auto La Stoa</strong>
+        <span>Achat / Vente / Import</span>
+      </div>
+    </a>
+
+    <div class="hidden md:flex items-center gap-4">
+      <span class="tab-label">Que souhaitez-vous faire ?</span>
+      <div class="service-tabs" id="service-tabs">
+        <button class="tab-btn" data-tab="vente">Acheter</button>
+        <button class="tab-btn" data-tab="achat">Vendre</button>
+        <button class="tab-btn active" data-tab="import">Importer</button>
+      </div>
+    </div>
+
+    <button id="mobile-menu-button" class="md:hidden p-2 rounded-lg hover:bg-gray-100" aria-label="Menu">
+      <svg id="menu-icon-open" class="w-6 h-6 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+      <svg id="menu-icon-close" class="w-6 h-6 text-gray-500 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+    </button>
+  </div>
+
+  <!-- Mobile menu -->
+  <div id="mobile-menu" class="px-4 pb-3" style="border-top:1px solid #f0f0f0; background:white;">
+    <div class="flex gap-2 mb-3 pt-2">
+      <button class="tab-btn flex-1 text-center" data-tab="vente">Acheter</button>
+      <button class="tab-btn flex-1 text-center" data-tab="achat">Vendre</button>
+      <button class="tab-btn flex-1 text-center" data-tab="import">Importer</button>
+    </div>
+    <div id="mobile-import-nav" class="space-y-1">
+      <a href="#import-services" class="block py-2 px-3 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-50">Services</a>
+      <a href="#import-process" class="block py-2 px-3 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-50">Comment ça marche</a>
+      <a href="#import-faq" class="block py-2 px-3 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-50">FAQ</a>
+      <a href="#import-contact" class="block text-center py-2 px-3 rounded-lg text-sm font-semibold mt-1" style="background:var(--accent);color:var(--text);">Demander un devis</a>
+    </div>
+  </div>
+</header>
+
+<!-- ── Fixed blue subnav bar (import only) — sits flush below header ── -->
+<div id="import-subnav">
+  <a href="#import-services" class="header-subnav-link">Services</a>
+  <a href="#import-process" class="header-subnav-link">Comment ça marche</a>
+  <a href="#import-faq" class="header-subnav-link">FAQ</a>
+  <div style="flex:1;"></div>
+  <a href="#import-contact" class="header-subnav-cta">Demander un devis →</a>
+</div>
+
+
+<!-- ══════════════════════════════════════
+     PAGE : ACHAT
+══════════════════════════════════════ -->
+<div class="page" id="page-achat">
+  <div class="achat-hero">
+    <h1>Vendez votre véhicule facilement</h1>
+    <p>Obtenez une estimation rapide et gratuite. Nous vous rappelons sous 24h pour vous faire une offre.</p>
+  </div>
+
+  <div style="background:var(--surface); padding-bottom: 80px;">
+    <div class="achat-form-wrap">
+      <h2 style="font-family:'DM Serif Display',serif; font-size:1.4rem; color:var(--text); margin-bottom:6px;">Votre véhicule en quelques infos</h2>
+      <p style="font-size:.82rem; color:var(--muted); margin-bottom:24px;">Remplissez ce formulaire, nous vous contactons rapidement.</p>
+
+      <form id="achatForm" action="https://docs.google.com/forms/d/e/1FAIpQLSdrT6eyTxeEcCznjZWoYGlWsx_siLr5YXWTKmuKaQtVHvGg-Q/formResponse" method="POST" style="display:flex; flex-direction:column; gap:16px;">
+        <div class="form-2col" style="display:grid; grid-template-columns:1fr 1fr; gap:14px;">
+          <div>
+            <label class="achat-form-label">Marque</label>
+            <input type="text" name="entry.399195201" class="achat-form-input" placeholder="Ex : Renault" required>
+          </div>
+          <div>
+            <label class="achat-form-label">Modèle</label>
+            <input type="text" name="entry.1377313184" class="achat-form-input" placeholder="Ex : Clio" required>
+          </div>
+        </div>
+        <div class="form-2col" style="display:grid; grid-template-columns:1fr 1fr; gap:14px;">
+          <div>
+            <label class="achat-form-label">Année</label>
+            <input type="number" name="entry.449222703" class="achat-form-input" placeholder="2019" min="1990" max="2025">
+          </div>
+          <div>
+            <label class="achat-form-label">Kilométrage</label>
+            <input type="text" name="entry.1309833738" class="achat-form-input" placeholder="Ex : 75 000 km">
+          </div>
+        </div>
+        <div>
+          <label class="achat-form-label">Carburant</label>
+          <select name="entry.982189838" class="achat-form-input">
+            <option value="">Sélectionnez</option>
+            <option>Essence</option>
+            <option>Diesel</option>
+            <option>Hybride</option>
+            <option>Électrique</option>
+            <option>Autre</option>
+          </select>
+        </div>
+        <div>
+          <label class="achat-form-label">État général</label>
+          <select name="entry.1964233085" class="achat-form-input">
+            <option value="">Sélectionnez</option>
+            <option>Excellent – Comme neuf</option>
+            <option>Bon – Quelques traces d'usure</option>
+            <option>Correct – Réparations mineures nécessaires</option>
+            <option>À rénover</option>
+          </select>
+        </div>
+        <div>
+          <label class="achat-form-label">Informations complémentaires</label>
+          <textarea name="entry.612587294" class="achat-form-input" rows="3" placeholder="Historique, options, réparations récentes…" style="resize:vertical;"></textarea>
+        </div>
+        <div class="form-divider"></div>
+        <div class="form-2col" style="display:grid; grid-template-columns:1fr 1fr; gap:14px;">
+          <div>
+            <label class="achat-form-label">Votre nom</label>
+            <input type="text" name="entry.2063415621" id="achat-nom" class="achat-form-input" placeholder="Nom et prénom" required>
+          </div>
+          <div>
+            <label class="achat-form-label">Téléphone</label>
+            <input type="tel" name="entry.646258214" id="achat-tel" class="achat-form-input" placeholder="06 XX XX XX XX" required>
+          </div>
+        </div>
+        <div>
+          <label class="achat-form-label">Email</label>
+          <input type="email" name="entry.14420385" id="achat-email" class="achat-form-input" placeholder="votre@email.com" required>
+        </div>
+        <button type="submit" class="achat-btn-submit">Envoyer ma demande d'estimation →</button>
+      </form>
+      <div id="achatSuccess" class="hidden" style="margin-top:16px;padding:14px;background:#d1fae5;color:#065f46;border-radius:10px;font-size:.875rem;">
+        ✅ Demande reçue ! Nous vous contactons sous 24h.
+      </div>
+    </div>
+
+    <!-- Reassurance -->
+    <div class="reassurance-3col" style="max-width:560px; margin:32px auto 0; padding:0 16px; display:grid; grid-template-columns:repeat(3,1fr); gap:16px; text-align:center;">
+      <div style="padding:16px; background:white; border-radius:12px; border:1px solid #e8eaf0;">
+        <div style="font-size:1.6rem; margin-bottom:6px;">⚡</div>
+        <div style="font-size:.78rem; font-weight:600; color:var(--text);">Réponse rapide</div>
+        <div style="font-size:.72rem; color:var(--muted);">Sous 24h ouvrées</div>
+      </div>
+      <div style="padding:16px; background:white; border-radius:12px; border:1px solid #e8eaf0;">
+        <div style="font-size:1.6rem; margin-bottom:6px;">🤝</div>
+        <div style="font-size:.78rem; font-weight:600; color:var(--text);">Sans engagement</div>
+        <div style="font-size:.72rem; color:var(--muted);">Estimation gratuite</div>
+      </div>
+      <div style="padding:16px; background:white; border-radius:12px; border:1px solid #e8eaf0;">
+        <div style="font-size:1.6rem; margin-bottom:6px;">✅</div>
+        <div style="font-size:.78rem; font-weight:600; color:var(--text);">Prix juste</div>
+        <div style="font-size:.72rem; color:var(--muted);">Offre transparente</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════════════════════════════
+     ✏️✏️✏️  STOCK — MODIFIEZ UNIQUEMENT CE BLOC  ✏️✏️✏️
+     ═══════════════════════════════════════════════════════════════
+
+  Pour chaque véhicule, renseignez les champs suivants :
+
+  photo       → chemin vers l'image  ex: "images/golf.jpg"
+                laisser "" pour afficher une icône à la place
+  titre       → marque + modèle      ex: "Volkswagen Golf"
+  sous_titre  → année, carburant     ex: "2021 · Diesel · Automatique"
+  km          → kilométrage          ex: "45 000 km"
+  carburant   → type                 ex: "Diesel"
+  puissance   → puissance moteur     ex: "150 ch"
+  couleur     → teinte               ex: "Gris Platine"
+  prix        → prix affiché         ex: "18 500 €"
+  statut      → "dispo" | "reserve" | "vendu"
+  lien        → URL de l'annonce     ex: "https://www.leboncoin.fr/votre-annonce"
+
+  ➕ Ajouter un véhicule  → copiez-collez un bloc { ... },
+  ➖ Supprimer un véhicule → supprimez le bloc { ... },
+
+══════════════════════════════════════════════════════════════════ -->
+<script>
+const STOCK = [
+
+  {
+    photo:      "images/voiture_1.jpeg",
+    titre:      "BMW Série 1",
+    sous_titre: "2019 · Essence · Automatique",
+    km:         "92 400 km",
+    carburant:  "Essence",
+    puissance:  "136 ch",
+    couleur:    "Gris Platine",
+    prix:       "14 890 €",
+    statut:     "dispo",
+    lien:       "https://www.leboncoin.fr/ad/voitures/3148607923"
+  },
+
+  {
+    photo:      "images/voiture_2.jpeg",
+    titre:      "BMW Série 1",
+    sous_titre: "2019 · Essence · Automatique",
+    km:         "86 200 km",
+    carburant:  "Essence",
+    puissance:  "184 ch",
+    couleur:    "Blanc Alpin",
+    prix:       "19 990  €",
+    statut:     "dispo",
+    lien:       "https://www.leboncoin.fr/ad/voitures/3136030072"
+  },
+
+  /* ➕ Copiez-collez un bloc ci-dessous pour ajouter un véhicule :
+
+  ,{
+    photo:      "",
+    titre:      "Marque Modèle",
+    sous_titre: "Année · Carburant · Boîte",
+    km:         "00 000 km",
+    carburant:  "Essence",
+    puissance:  "000 ch",
+    couleur:    "Couleur",
+    prix:       "00 000 €",
+    statut:     "dispo",
+    lien:       "https://lien-de-votre-annonce.com"
+  }
+
+  */
+
+];
+</script>
+<!-- ══════════════════════════════════════════════════════════════════
+     FIN DU BLOC DE CONFIGURATION STOCK
+══════════════════════════════════════════════════════════════════ -->
+
+<div class="page" id="page-vente">
+  <div class="vente-hero">
+    <h1>Nos véhicules à vendre</h1>
+    <p>Retrouvez notre sélection de véhicules soigneusement choisis, vérifiés et prêts à partir.</p>
+  </div>
+  <div class="vehicle-grid" id="vehicle-grid"></div>
+  <div class="stock-empty hidden" id="stock-empty">
+    <div class="icon">🔍</div>
+    <h3>Aucun véhicule en stock pour le moment</h3>
+    <p>Revenez bientôt ou contactez-nous pour connaître nos prochaines arrivées.</p>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════
+     PAGE : IMPORT
+══════════════════════════════════════ -->
+<div class="page active" id="page-import">
+
+  <!-- HERO -->
+  <section class="hero" id="accueil">
+    <div style="max-width:1200px; margin:0 auto; padding:0 clamp(16px,4vw,40px); position:relative; z-index:10; width:100%;">
+      <div class="hero-2col" style="display:grid; grid-template-columns:1fr 1fr; gap:64px; align-items:center; padding:40px 0 80px;">
+        <div>
+          <h1 class="anim-down">
+            Votre voiture<br>de rêve, <em>importée<br>d'Europe</em>
+          </h1>
+          <p class="anim-up">
+            Auto La Stoa prend en charge l'intégralité de votre projet d'importation —
+            recherche, achat, logistique et immatriculation — pour vous livrer le véhicule idéal au meilleur prix.
+          </p>
+          <div style="display:flex; flex-wrap:wrap; gap:12px;" class="anim-in">
+            <a href="#import-contact" class="btn-primary">
+              Faites-vous rappeler
+              <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+            <a href="#import-process" class="btn-secondary">Comment ça marche</a>
+          </div>
+          <div class="hero-stats">
+            <div><span class="hero-stat-num">2–4</span><span class="hero-stat-label">Semaines délai</span></div>
+            <div><span class="hero-stat-num">0</span><span class="hero-stat-label">Frais cachés</span></div>
+            <div><span class="hero-stat-num">100%</span><span class="hero-stat-label">Clé en main</span></div>
+          </div>
+        </div>
+        <div class="hero-visual" style="display:flex; flex-direction:column; gap:16px;">
+          <div class="hero-card"><div class="hero-card-icon">🔍</div><div class="hero-card-text"><strong>Recherche personnalisée</strong><span>Des milliers d'offres analysées pour vous</span></div></div>
+          <div class="hero-card"><div class="hero-card-icon">🛡️</div><div class="hero-card-text"><strong>Transport assuré</strong><span>Votre véhicule livré en toute sécurité</span></div></div>
+          <div class="hero-card"><div class="hero-card-icon">📄</div><div class="hero-card-text"><strong>100% administratif pris en charge</strong><span>Douane, COC, immatriculation</span></div></div>
+        </div>
+      </div>
+    </div>
+    <div style="position:absolute;bottom:0;left:0;right:0;height:60px;background:var(--surface);clip-path:polygon(0 100%,100% 0,100% 100%);"></div>
+  </section>
+
+  <!-- TRUST BAND -->
+  <div class="trust-band">
+    <div style="max-width:1200px; margin:0 auto; padding:0 clamp(16px,4vw,40px);">
+      <div class="trust-grid" style="display:grid; grid-template-columns:repeat(3,1fr); gap:0; border-left:1px solid #e5e7eb;">
+        <div class="trust-col trust-item reveal" style="border-right:1px solid #e5e7eb; padding-left:32px;">
+          <div class="trust-item-icon">🚗</div>
+          <div><h3>Accès au marché européen</h3><p>Des prix souvent bien inférieurs au marché français</p></div>
+        </div>
+        <div class="trust-col trust-item reveal" style="border-right:1px solid #e5e7eb; padding:24px 32px; transition-delay:.1s">
+          <div class="trust-item-icon">⏱️</div>
+          <div><h3>Gain de temps total</h3><p>Toutes les démarches prises en charge de A à Z</p></div>
+        </div>
+        <div class="trust-col trust-item reveal" style="padding-left:32px; transition-delay:.2s">
+          <div class="trust-item-icon">🔒</div>
+          <div><h3>Transparence et sécurité</h3><p>Zéro frais caché, vérifications rigoureuses</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SERVICES -->
+  <section id="import-services" class="section-pad" style="padding:96px 40px; background:var(--surface);">
+    <div style="max-width:1200px; margin:0 auto;">
+      <div style="text-align:center; margin-bottom:56px;" class="reveal">
+        <div class="section-label">Nos services</div>
+        <h2 class="section-title" style="margin-top:8px;">Un accompagnement <span>complet</span><br>de A à Z</h2>
+      </div>
+      <div style="display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:24px;">
+        <div class="service-card reveal"><div class="service-card-icon">🔍</div><h3>Recherche et sélection</h3><p>Accompagnement personnalisé pour trouver le véhicule correspondant à vos critères parmi des milliers d'offres en Europe.</p></div>
+        <div class="service-card reveal" style="transition-delay:.08s"><div class="service-card-icon">🤝</div><h3>Négociation et achat</h3><p>Nous négocions les meilleurs prix et sécurisons la transaction avec des partenaires fiables, tout en vérifiant la conformité des documents.</p></div>
+        <div class="service-card reveal" style="transition-delay:.16s"><div class="service-card-icon">🚢</div><h3>Logistique et transport</h3><p>Organisation du transport sécurisé depuis l'Europe jusqu'à votre domicile, avec une assurance pour une tranquillité totale.</p></div>
+        <div class="service-card reveal" style="transition-delay:.24s"><div class="service-card-icon">📄</div><h3>Formalités administratives</h3><p>Prise en charge complète des démarches douanières, quitus fiscal et certificat de conformité (COC).</p></div>
+        <div class="service-card reveal" style="transition-delay:.32s"><div class="service-card-icon">🏷️</div><h3>Immatriculation</h3><p>Accompagnement pour l'immatriculation de votre véhicule en France, pour que vous puissiez prendre la route rapidement.</p></div>
+        <div class="service-card reveal" style="transition-delay:.4s"><div class="service-card-icon">✨</div><h3>Services complémentaires</h3><p>Garantie étendue, préparation esthétique ou livraison à domicile pour une expérience sur mesure.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROCESS -->
+  <section id="import-process" class="section-pad" style="padding:96px 40px; background:white;">
+    <div class="process-2col" style="max-width:1200px; margin:0 auto; display:grid; grid-template-columns:1fr 1fr; gap:64px; align-items:center;">
+      <div class="reveal">
+        <div class="section-label">Processus</div>
+        <h2 class="section-title" style="margin-top:8px; margin-bottom:20px;">4 étapes simples<br>vers votre <span>nouveau véhicule</span></h2>
+        <p style="color:var(--muted); font-size:.9rem; line-height:1.8;">De la définition de votre projet à la remise des clés, nous orchestrons chaque étape pour vous offrir une expérience sans stress et 100% transparente.</p>
+      </div>
+      <div class="reveal" style="transition-delay:.15s;">
+        <div class="step-item"><div class="step-num">1</div><div class="step-content"><h3>📝 Définissez votre projet</h3><p>Remplissez notre formulaire en précisant le véhicule de vos rêves et vos critères spécifiques.</p></div></div>
+        <div class="step-connector"></div>
+        <div class="step-item"><div class="step-num">2</div><div class="step-content"><h3>🔎 Recherche et validation</h3><p>Nous trouvons et vérifions les meilleures offres, puis vous validez le véhicule de votre choix.</p></div></div>
+        <div class="step-connector"></div>
+        <div class="step-item"><div class="step-num">3</div><div class="step-content"><h3>📄 Importation et formalités</h3><p>Nous gérons le transport, les démarches douanières, la TVA et toutes les formalités administratives.</p></div></div>
+        <div class="step-connector"></div>
+        <div class="step-item"><div class="step-num">4</div><div class="step-content"><h3>🔑 Livraison clé en main</h3><p>Votre véhicule est livré prêt à être immatriculé. Profitez de votre voiture sans soucis !</p></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- POURQUOI NOUS -->
+  <section class="section-pad" style="padding:96px 40px; background:var(--surface);">
+    <div style="max-width:1200px; margin:0 auto;">
+      <div style="text-align:center; margin-bottom:56px;" class="reveal">
+        <div class="section-label">Pourquoi nous</div>
+        <h2 class="section-title" style="margin-top:8px;">Ce qui nous <span>distingue</span></h2>
+      </div>
+      <div class="why-grid-3" style="display:grid; grid-template-columns:repeat(3,1fr); gap:20px;">
+        <div class="why-card reveal"><div class="why-icon">🌟</div><div><h3>Expertise inégalée</h3><p>Des années d'expérience dans l'importation et une connaissance approfondie du marché européen.</p></div></div>
+        <div class="why-card reveal" style="transition-delay:.07s"><div class="why-icon">✅</div><div><h3>Transparence totale</h3><p>Aucun frais caché. Un devis clair et détaillé pour chaque étape du processus.</p></div></div>
+        <div class="why-card reveal" style="transition-delay:.14s"><div class="why-icon">🤝</div><div><h3>Accompagnement personnalisé</h3><p>Un interlocuteur dédié à votre projet, de la recherche à la livraison.</p></div></div>
+        <div class="why-card reveal" style="transition-delay:.21s"><div class="why-icon">🛡️</div><div><h3>Sécurité garantie</h3><p>Vérifications rigoureuses des véhicules et transport assuré pour votre tranquillité.</p></div></div>
+        <div class="why-card reveal" style="transition-delay:.28s"><div class="why-icon">💰</div><div><h3>Optimisation des coûts</h3><p>Accédez aux meilleures offres du marché européen pour économiser sur votre achat.</p></div></div>
+        <div class="why-card reveal" style="transition-delay:.35s"><div class="why-icon">⭐</div><div><h3>Satisfaction client</h3><p>Votre satisfaction est notre priorité absolue. Nos clients nous font confiance.</p></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="import-faq" class="section-pad" style="padding:96px 40px; background:white;">
+    <div style="max-width:1200px; margin:0 auto;">
+      <div style="text-align:center; margin-bottom:56px;" class="reveal">
+        <div class="section-label">FAQ</div>
+        <h2 class="section-title" style="margin-top:8px;">Questions <span>fréquentes</span></h2>
+      </div>
+      <div style="max-width:640px; margin:0 auto; display:flex; flex-direction:column; gap:12px;">
+        <div class="faq-item reveal"><button class="faq-question">Quel type de voiture est-il intéressant d'importer ?<div class="faq-chevron"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></div></button><div class="faq-answer"><div class="faq-answer-inner">Toutes les voitures peuvent être intéressantes à importer dès un budget de 10 000 €. La diversité et les prix en Europe sont très attractifs, que ce soit pour des compacts, des berlines, des SUV ou des voitures de luxe.</div></div></div>
+        <div class="faq-item reveal" style="transition-delay:.06s"><button class="faq-question">Combien de temps prend une importation ?<div class="faq-chevron"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></div></button><div class="faq-answer"><div class="faq-answer-inner">Le délai varie généralement entre 2 et 4 semaines selon la provenance du véhicule et la rapidité des formalités. Nous vous tenons informé à chaque étape.</div></div></div>
+        <div class="faq-item reveal" style="transition-delay:.12s"><button class="faq-question">Quels sont les coûts supplémentaires à prévoir ?<div class="faq-chevron"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></div></button><div class="faq-answer"><div class="faq-answer-inner">Outre le prix du véhicule et nos frais de service, il faut prévoir la TVA (si non acquittée en Europe) et les frais d'immatriculation (carte grise). Tout est détaillé dans votre devis.</div></div></div>
+        <div class="faq-item reveal" style="transition-delay:.18s"><button class="faq-question">Comment se déroule le paiement ?<div class="faq-chevron"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></div></button><div class="faq-answer"><div class="faq-answer-inner">Le paiement est sécurisé et échelonné : un acompte lance la recherche et la validation, puis le solde est versé à la livraison.</div></div></div>
+        <div class="faq-item reveal" style="transition-delay:.24s"><button class="faq-question">D'où proviennent vos véhicules ?<div class="faq-chevron"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></div></button><div class="faq-answer"><div class="faq-answer-inner">Nous importons principalement d'Allemagne, de Belgique, des Pays-Bas et d'autres pays de l'UE, reconnus pour la qualité et la transparence de leur marché automobile.</div></div></div>
+        <div class="faq-item reveal" style="transition-delay:.3s"><button class="faq-question">Les véhicules importés sont-ils fiables ?<div class="faq-chevron"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></div></button><div class="faq-answer"><div class="faq-answer-inner">Oui. Nous collaborons uniquement avec des partenaires reconnus. Chaque véhicule est soumis à une vérification rigoureuse de son historique, kilométrage et état avant l'achat.</div></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="import-contact" class="contact-section section-pad" style="padding:96px 40px;">
+    <div class="contact-2col" style="max-width:1200px; margin:0 auto; display:grid; grid-template-columns:1fr 1fr; gap:64px; align-items:start;">
+      <div class="reveal">
+        <div class="section-label" style="background:rgba(232,200,74,.15);color:var(--accent);">Contact</div>
+        <h2 class="section-title" style="margin-top:8px; margin-bottom:20px; color:white;">Faites-vous <span style="color:white;">rappeler</span></h2>
+        <p style="color:rgba(255,255,255,.7); font-size:.9rem; line-height:1.8; margin-bottom:28px;">Décrivez votre projet, nous vous recontactons rapidement pour établir un devis personnalisé.</p>
+        <div style="display:flex;flex-direction:column;gap:14px;">
+          <div style="display:flex;align-items:center;gap:12px;color:rgba(255,255,255,.7);font-size:.875rem;"><div style="width:36px;height:36px;background:rgba(255,255,255,.1);border-radius:8px;display:flex;align-items:center;justify-content:center;">📞</div>Réponse sous 24h ouvrées</div>
+          <div style="display:flex;align-items:center;gap:12px;color:rgba(255,255,255,.7);font-size:.875rem;"><div style="width:36px;height:36px;background:rgba(255,255,255,.1);border-radius:8px;display:flex;align-items:center;justify-content:center;">🤝</div>Premier échange sans engagement</div>
+          <div style="display:flex;align-items:center;gap:12px;color:rgba(255,255,255,.7);font-size:.875rem;"><div style="width:36px;height:36px;background:rgba(255,255,255,.1);border-radius:8px;display:flex;align-items:center;justify-content:center;">📋</div>Devis détaillé et transparent</div>
+        </div>
+      </div>
+      <div class="reveal" style="transition-delay:.15s;">
+        <div style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:20px;padding:36px;backdrop-filter:blur(12px);">
+          <form id="contactForm" action="https://docs.google.com/forms/d/e/1FAIpQLSeUSJkV04Uy1EcDnG7xGiLGc74_ty87AsYzt6KuWdXMYxHUYQ/formResponse" method="POST" target="_blank" style="display:flex;flex-direction:column;gap:18px;">
+            <div><label class="form-label">Nom complet</label><input type="text" id="name" name="entry.1266480385" class="form-input" placeholder="Votre nom et prénom" required></div>
+            <div><label class="form-label">Adresse email</label><input type="email" id="email" name="entry.1381520928" class="form-input" placeholder="votre.email@example.com" required></div>
+            <div><label class="form-label">Téléphone</label><input type="tel" id="phone" name="entry.1577090415" class="form-input" placeholder="06 XX XX XX XX" pattern="[0-9]{10}" required></div>
+            <div><label class="form-label">Véhicule souhaité</label><textarea id="vehicle" name="entry.1322431296" rows="3" class="form-input" placeholder="Ex : Peugeot 308, 2020+, &lt;50 000 km, budget 15 000–18 000 €" style="resize:vertical;"></textarea></div>
+            <div><label class="form-label">Message (optionnel)</label><textarea id="message" name="entry.1893411838" rows="2" class="form-input" placeholder="Des questions spécifiques ?" style="resize:vertical;"></textarea></div>
+            <button type="submit" class="btn-submit">Envoyer ma demande →</button>
+          </form>
+          <div id="formSuccessMessage" class="hidden" style="margin-top:16px;padding:14px;background:rgba(52,211,153,.15);border:1px solid rgba(52,211,153,.3);color:#6ee7b7;border-radius:10px;font-size:.875rem;">✅ Demande envoyée ! Nous vous contactons sous 24h.</div>
+          <div id="formErrorMessage" class="hidden" style="margin-top:16px;padding:14px;background:rgba(239,68,68,.15);border:1px solid rgba(239,68,68,.3);color:#fca5a5;border-radius:10px;font-size:.875rem;">⚠️ Veuillez corriger les erreurs dans le formulaire.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div><!-- /page-import -->
+
+
+<!-- ══════════════════════════════════════
+     FOOTER (shared)
+══════════════════════════════════════ -->
+<footer>
+  <div class="footer-inner">
+    <p style="color:rgba(255,255,255,.35);font-size:.8rem;">© 2025 Auto La Stoa. Tous droits réservés.</p>
+    <nav style="display:flex;gap:24px;">
+      <a href="mentions-legales.html" target="_blank" rel="noopener" style="color:rgba(255,255,255,.35);font-size:.8rem;text-decoration:none;" onmouseover="this.style.color='rgba(255,255,255,.75)'" onmouseout="this.style.color='rgba(255,255,255,.35)'">Mentions légales</a>
+      <a href="politique-confidentialite.html" target="_blank" rel="noopener" style="color:rgba(255,255,255,.35);font-size:.8rem;text-decoration:none;" onmouseover="this.style.color='rgba(255,255,255,.75)'" onmouseout="this.style.color='rgba(255,255,255,.35)'">Politique de confidentialité</a>
+    </nav>
+    <div style="display:flex;gap:10px;">
+      <a href="https://www.instagram.com/autolastoa" target="_blank" rel="noopener" style="width:36px;height:36px;background:rgba(255,255,255,.08);border-radius:8px;display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.45);transition:background .2s,color .2s;" aria-label="Instagram" onmouseover="this.style.background='rgba(255,255,255,.16)';this.style.color='white'" onmouseout="this.style.background='rgba(255,255,255,.08)';this.style.color='rgba(255,255,255,.45)'">
+        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4c0 3.2-2.6 5.8-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8C2 4.6 4.6 2 7.8 2zm-.2 2A2.6 2.6 0 005 7.6v8.8A2.6 2.6 0 007.6 19h8.8a2.6 2.6 0 002.6-2.6V7.6A2.6 2.6 0 0016.4 5H7.6zM12 7a5 5 0 100 10 5 5 0 000-10zm0 2a3 3 0 110 6 3 3 0 010-6zm6.5-3a1.25 1.25 0 100 2.5 1.25 1.25 0 000-2.5z"/></svg>
+      </a>
+      <a href="https://www.tiktok.com/@autolastoa" target="_blank" rel="noopener" style="width:36px;height:36px;background:rgba(255,255,255,.08);border-radius:8px;display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.45);transition:background .2s,color .2s;" aria-label="TikTok" onmouseover="this.style.background='rgba(255,255,255,.16)';this.style.color='white'" onmouseout="this.style.background='rgba(255,255,255,.08)';this.style.color='rgba(255,255,255,.45)'">
+        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-5.2 1.74 2.89 2.89 0 012.31-4.81 2.89 2.89 0 011.1.22v-3.8a6.35 6.35 0 00-1.1-.12c-3.46 0-6.29 2.84-6.29 6.34a6.34 6.34 0 004.06 5.92 6.34 6.34 0 007.39-1.75V9.58a8.27 8.27 0 004.95 1.61V7.44a4.82 4.82 0 01-.4-.75z"/></svg>
+      </a>
+    </div>
+  </div>
+</footer>
+
+
+<!-- ══════════════════════════════════════
+     JAVASCRIPT
+══════════════════════════════════════ -->
+<script>
+  // ── Tab switching
+  const subnav = document.getElementById('import-subnav');
+
+  function switchTab(tab) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById('page-' + tab).classList.add('active');
+    document.querySelectorAll(`.tab-btn[data-tab="${tab}"]`).forEach(b => b.classList.add('active'));
+
+    // Show/hide import sub-nav row
+    if (tab === 'import') {
+      subnav.style.display = 'flex';
+      document.getElementById('mobile-import-nav').style.display = 'block';
+    } else {
+      subnav.style.display = 'none';
+      document.getElementById('mobile-import-nav').style.display = 'none';
+    }
+
+    // Recompute header height after subnav toggle
+    setTimeout(adjustBodyPadding, 10);
+
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+
+    setTimeout(() => {
+      document.querySelectorAll('#page-' + tab + ' .reveal').forEach(el => {
+        el.classList.remove('visible');
+        observer.observe(el);
+      });
+    }, 100);
+  }
+
+  // Attach tab button click events
+  document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.addEventListener('click', () => switchTab(btn.dataset.tab));
+  });
+
+  // ── Header scroll
+  const header = document.getElementById('main-header');
+  window.addEventListener('scroll', () => {
+    header.classList.toggle('scrolled', window.scrollY > 30);
+  }, { passive: true });
+
+  // ── Mobile menu
+  const mobileBtn = document.getElementById('mobile-menu-button');
+  const mobileMenu = document.getElementById('mobile-menu');
+  const iconOpen = document.getElementById('menu-icon-open');
+  const iconClose = document.getElementById('menu-icon-close');
+
+  mobileBtn.addEventListener('click', () => {
+    const isOpen = mobileMenu.classList.toggle('open');
+    iconOpen.classList.toggle('hidden', isOpen);
+    iconClose.classList.toggle('hidden', !isOpen);
+  });
+
+  mobileMenu.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      mobileMenu.classList.remove('open');
+      iconOpen.classList.remove('hidden');
+      iconClose.classList.add('hidden');
+    });
+  });
+
+  // ── Scroll reveal
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  // ── FAQ accordion
+  document.querySelectorAll('.faq-question').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const item = btn.closest('.faq-item');
+      const answer = item.querySelector('.faq-answer');
+      const isOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item').forEach(i => {
+        i.classList.remove('open');
+        i.querySelector('.faq-answer').style.maxHeight = '0';
+      });
+      if (!isOpen) { item.classList.add('open'); answer.style.maxHeight = answer.scrollHeight + 'px'; }
+    });
+  });
+
+  // ── Import contact form
+  const contactForm = document.getElementById('contactForm');
+  const formSuccess = document.getElementById('formSuccessMessage');
+  const formError = document.getElementById('formErrorMessage');
+
+  contactForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    formSuccess.classList.add('hidden');
+    formError.classList.add('hidden');
+
+    let valid = true;
+    const phone = document.getElementById('phone');
+    const email = document.getElementById('email');
+
+    if (!(/^[0-9]{10}$/.test(phone.value))) { valid = false; phone.classList.add('error'); }
+    else phone.classList.remove('error');
+    if (!email.checkValidity()) { valid = false; email.classList.add('error'); }
+    else email.classList.remove('error');
+
+    if (!valid) { formError.classList.remove('hidden'); return; }
+
+    try {
+      await fetch(contactForm.action, { method: 'POST', body: new FormData(contactForm), mode: 'no-cors' });
+      formSuccess.classList.remove('hidden');
+      contactForm.reset();
+      setTimeout(() => formSuccess.classList.add('hidden'), 6000);
+    } catch {
+      formError.textContent = '⚠️ Une erreur est survenue. Veuillez réessayer.';
+      formError.classList.remove('hidden');
+    }
+  });
+
+  [document.getElementById('phone'), document.getElementById('email')].forEach(el => {
+    el.addEventListener('input', () => el.classList.remove('error'));
+  });
+
+  // ── Render stock from STOCK array
+  (function renderStock() {
+    const grid = document.getElementById('vehicle-grid');
+    const empty = document.getElementById('stock-empty');
+    if (!grid) return;
+
+    const badgeLabel  = { dispo: 'Disponible', reserve: 'Réservé', vendu: 'Vendu' };
+    const badgeClass  = { dispo: 'dispo',      reserve: 'reserve', vendu: 'vendu'  };
+    const icons       = ['🚗','🚙','🏎️','🚐','🚕','🛻'];
+
+    if (!STOCK || STOCK.length === 0) {
+      empty.classList.remove('hidden');
+      return;
+    }
+
+    STOCK.forEach((v, i) => {
+      const statut  = v.statut || 'dispo';
+      const isDispo = statut === 'dispo';
+
+      const imgHTML = v.photo
+        ? `<img src="${v.photo}" alt="${v.titre}" style="width:100%;height:100%;object-fit:cover;">`
+        : `<span style="font-size:3rem;">${icons[i % icons.length]}</span>`;
+
+      const ctaHTML = isDispo && v.lien
+        ? `<a href="${v.lien}" target="_blank" rel="noopener" class="vehicle-cta">Vers l'annonce →</a>`
+        : `<a href="#" class="vehicle-cta" style="pointer-events:none;opacity:.45;">${badgeLabel[statut]}</a>`;
+
+      grid.innerHTML += `
+        <div class="vehicle-card">
+          <div class="vehicle-img placeholder" style="aspect-ratio:16/10;display:flex;align-items:center;justify-content:center;overflow:hidden;">
+            ${imgHTML}
+          </div>
+          <div class="vehicle-body">
+            <span class="vehicle-badge ${badgeClass[statut]}">${badgeLabel[statut]}</span>
+            <div class="vehicle-title">${v.titre}</div>
+            <div class="vehicle-sub">${v.sous_titre}</div>
+            <div class="vehicle-specs">
+              ${v.km        ? `<span class="vehicle-spec">📍 ${v.km}</span>`        : ''}
+              ${v.puissance ? `<span class="vehicle-spec">⚡ ${v.puissance}</span>`  : ''}
+              ${v.carburant ? `<span class="vehicle-spec">⛽ ${v.carburant}</span>`  : ''}
+              ${v.couleur   ? `<span class="vehicle-spec">🎨 ${v.couleur}</span>`   : ''}
+            </div>
+            <div class="vehicle-price">${v.prix}</div>
+            ${ctaHTML}
+          </div>
+        </div>`;
+    });
+  })();
+
+
+  // ── Vente form → Google Forms
+  const achatForm    = document.getElementById('achatForm');
+  const achatSuccess = document.getElementById('achatSuccess');
+
+  achatForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const tel   = document.getElementById('achat-tel');
+    const email = document.getElementById('achat-email');
+    let valid = true;
+
+    if (!(/^[0-9]{10}$/.test(tel.value.replace(/\s/g,'')))) {
+      tel.classList.add('error'); valid = false;
+    } else tel.classList.remove('error');
+
+    if (!email.checkValidity()) {
+      email.classList.add('error'); valid = false;
+    } else email.classList.remove('error');
+
+    if (!valid) return;
+
+    try {
+      await fetch(achatForm.action, {
+        method: 'POST',
+        body: new FormData(achatForm),
+        mode: 'no-cors'
+      });
+    } catch {}
+
+    achatSuccess.classList.remove('hidden');
+    achatForm.reset();
+    setTimeout(() => achatSuccess.classList.add('hidden'), 6000);
+  });
+
+  [document.getElementById('achat-tel'), document.getElementById('achat-email')].forEach(el => {
+    el?.addEventListener('input', () => el.classList.remove('error'));
+  });
+
+  // ── Init: import tab active by default, subnav visible
+  document.getElementById('import-subnav').style.display = 'flex';
+
+  // ── Compensate for fixed header height dynamically
+  function adjustBodyPadding() {
+    const headerH = document.getElementById('main-header').offsetHeight;
+    const subnav  = document.getElementById('import-subnav');
+    const subnavVisible = subnav.style.display !== 'none' && subnav.style.visibility !== 'hidden';
+    const subnavH = subnavVisible ? subnav.offsetHeight : 0;
+    subnav.style.top = headerH + 'px';
+    document.body.style.paddingTop = (headerH + subnavH) + 'px';
+    document.documentElement.style.scrollPaddingTop = (headerH + subnavH) + 'px';
+  }
+
+  // ── Intercept all in-page anchor clicks for pixel-perfect scroll
+  document.addEventListener('click', function(e) {
+    const link = e.target.closest('a[href^="#"]');
+    if (!link) return;
+    const target = document.querySelector(link.getAttribute('href'));
+    if (!target) return;
+    e.preventDefault();
+    const headerH  = document.getElementById('main-header').offsetHeight;
+    const subnav   = document.getElementById('import-subnav');
+    const subnavH  = (subnav.style.display !== 'none') ? subnav.offsetHeight : 0;
+    const offset   = headerH + subnavH;
+    const top      = target.getBoundingClientRect().top + window.scrollY - offset;
+    window.scrollTo({ top, behavior: 'smooth' });
+  });
+  adjustBodyPadding();
+  window.addEventListener('resize', adjustBodyPadding);
 </script>
 
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Importation de Véhicules d'Europe - Auto La Stoa</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #f8f8f8; /* Légèrement gris clair */
-        }
-        /* Custom scrollbar for a cleaner look */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #e0e0e0;
-            border-radius: 10px;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #a0a0a0;
-            border-radius: 10px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #808080;
-        }
-
-        /* Définition des couleurs personnalisées pour le bleu #000086 et ses variantes */
-        .bg-custom-blue {
-            background-color: #000086;
-        }
-        .hover\:bg-custom-blue-darker:hover {
-            background-color: #000064; /* Une nuance plus foncée pour le survol */
-        }
-        .text-custom-blue {
-            color: #000086;
-        }
-        .bg-custom-blue-light {
-            background-color: #9696C8; /* Une nuance plus claire pour la ligne */
-        }
-        .focus\:ring-custom-blue:focus {
-            outline-color: #000086;
-            box-shadow: 0 0 0 3px rgba(0, 0, 134, 0.3); /* Ajout d'une ombre pour le focus */
-        }
-        .focus\:border-custom-blue:focus {
-            border-color: #000086;
-        }
-    </style>
-</head>
-<body class="text-gray-800">
-
-    <header class="bg-white shadow-md py-4 px-6 md:px-12 fixed w-full z-50">
-        <div class="container mx-auto flex justify-between items-center">
-            <a href="#" class="flex items-center space-x-2">
-                <img src="images/logo-auto-la-stoa.png" alt="Logo Auto La Stoa" class="h-24 w-24 rounded-full shadow-md">
-                <span class="text-xl font-semibold text-custom-blue">Achat / Vente / Reprise / Import</span>
-            </a>
-            <nav class="hidden md:flex space-x-1">
-                <a href="#services" class="bg-custom-blue text-white px-4 py-2 rounded-md font-medium hover:bg-custom-blue-darker transition duration-300 shadow-md flex items-center justify-center">Services</a>
-                <a href="#comment-ca-marche" class="bg-custom-blue text-white px-4 py-2 rounded-md font-medium hover:bg-custom-blue-darker transition duration-300 shadow-md flex items-center justify-center">Comment ça marche</a>
-                <a href="#pourquoi-nous" class="bg-custom-blue text-white px-4 py-2 rounded-md font-medium hover:bg-custom-blue-darker transition duration-300 shadow-md flex items-center justify-center">Pourquoi nous</a>
-                <a href="#faq" class="bg-custom-blue text-white px-4 py-2 rounded-md font-medium hover:bg-custom-blue-darker transition duration-300 shadow-md flex items-center justify-center">FAQ</a>
-                <a href="#contact" class="bg-custom-blue text-white px-4 py-2 rounded-md font-medium hover:bg-custom-blue-darker transition duration-300 shadow-md flex items-center justify-center">Demander un devis</a>
-            </nav>
-            <button id="mobile-menu-button" class="md:hidden text-gray-600 focus:outline-none">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
-                </svg>
-            </button>
-        </div>
-        <nav id="mobile-menu" class="md:hidden bg-white mt-4 space-y-2 px-4 py-2 rounded-lg shadow-lg hidden">
-            <a href="#services" class="block text-center bg-custom-blue text-white font-medium py-2 px-5 rounded-md hover:bg-custom-blue-darker transition duration-300 shadow-md">Services</a>
-            <a href="#comment-ca-marche" class="block text-center bg-custom-blue text-white font-medium py-2 px-5 rounded-md hover:bg-custom-blue-darker transition duration-300 shadow-md">Comment ça marche</a>
-            <a href="#pourquoi-nous" class="block text-center bg-custom-blue text-white font-medium py-2 px-5 rounded-md hover:bg-custom-blue-darker transition duration-300 shadow-md">Pourquoi nous</a>
-            <a href="#faq" class="block text-center bg-custom-blue text-white font-medium py-2 px-5 rounded-md hover:bg-custom-blue-darker transition duration-300 shadow-md">FAQ</a>
-            <div class="border-t border-gray-200 pt-4 mt-4 space-y-2">
-                <a href="#contact" class="block text-center bg-custom-blue text-white font-medium py-2 px-5 rounded-md hover:bg-custom-blue-darker transition duration-300 shadow-md">Demander un devis</a>
-            </div>
-        </nav>
-    </header>
-
-    <main class="pt-32 relative z-10">
-        <section id="accueil" class="relative text-white py-24 md:py-32 overflow-hidden rounded-b-3xl shadow-lg" style="background: linear-gradient(to right, #000086, #000064);">
-            <div class="absolute inset-0 z-0 opacity-3" style="background-image: url('images/hero-background.jpg'); background-size: cover; background-position: center;"></div>
-            <div class="container mx-auto text-center px-6 relative z-10">
-                <h1 class="text-4xl md:text-6xl font-extrabold leading-tight mb-6 animate-fade-in-down">
-                    <br>                                                  
-                </h1>
-                <p class="text-lg md:text-xl mb-10 max-w-3xl mx-auto opacity-90 animate-fade-in-up">
-                    <br><br>
-                </p>
-                <a href="#contact" class="inline-block bg-white text-custom-blue hover:bg-gray-100 font-bold py-3 px-8 rounded-full shadow-lg transition duration-300 ease-in-out transform hover:scale-105 animate-bounce-in">
-                    Faites-vous rappeler
-                </a>
-            </div>
-        </section>
-
-        <section class="py-16 bg-white/80 rounded-3xl shadow-lg mx-auto relative z-20">
-            <div class="container mx-auto px-6">
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
-                    <div class="p-6 bg-gray-50/80 rounded-lg shadow-md hover:shadow-xl transition duration-300 transform hover:-translate-y-1">
-                        <div class="text-custom-blue text-4xl mb-4">🚗</div>
-                        <h3 class="text-xl font-semibold mb-2">Accès au marché européen</h3>
-                        <p class="text-gray-600">Un large choix de véhicules, souvent à des prix plus attractifs qu'en France.</p>
-                    </div>
-                    <div class="p-6 bg-gray-50/80 rounded-lg shadow-md hover:shadow-xl transition duration-300 transform hover:-translate-y-1">
-                        <div class="text-custom-blue text-4xl mb-4">⏱️</div>
-                        <h3 class="text-xl font-semibold mb-2">Gain de temps et sérénité</h3>
-                        <p class="text-gray-600">Nous prenons en charge toutes les démarches administratives et logistiques.</p>
-                    </div>
-                    <div class="p-6 bg-gray-50/80 rounded-lg shadow-md hover:shadow-xl transition duration-300 transform hover:-translate-y-1">
-                        <div class="text-custom-blue text-4xl mb-4">🔒</div>
-                        <h3 class="text-xl font-semibold mb-2">Transparence et sécurité</h3>
-                        <p class="text-gray-600">Aucun frais caché, vérifications rigoureuses et processus sécurisé.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="services" class="py-20 bg-gray-50/80">
-            <div class="container mx-auto px-6 text-center">
-                <h2 class="text-3xl md:text-4xl font-bold mb-12 text-custom-blue">Nos services complets</h2>
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
-                    <div class="bg-white/80 p-8 rounded-lg shadow-lg hover:shadow-xl transition duration-300 transform hover:scale-105">
-                        <div class="text-custom-blue text-5xl mb-4">🔍</div>
-                        <h3 class="text-2xl font-semibold mb-4">Recherche et sélection</h3>
-                        <p class="text-gray-700">Un accompagnement personnalisé pour trouver le véhicule correspondant à vos critères et à votre budget parmi des milliers d'offres en Europe.</p>
-                    </div>
-                    <div class="bg-white/80 p-8 rounded-lg shadow-lg hover:shadow-xl transition duration-300 transform hover:scale-105">
-                        <div class="text-custom-blue text-5xl mb-4">🤝</div>
-                        <h3 class="text-2xl font-semibold mb-4">Négociation et achat</h3>
-                        <p class="text-gray-700">Nous négocions les meilleurs prix pour vous et sécurisons la transaction avec des partenaires fiables, tout en vérifiant la conformité des documents.</p>
-                    </div>
-                    <div class="bg-white/80 p-8 rounded-lg shadow-lg hover:shadow-xl transition duration-300 transform hover:scale-105">
-                        <div class="text-custom-blue text-5xl mb-4">🚢</div>
-                        <h3 class="text-2xl font-semibold mb-4">Logistique et transport</h3>
-                        <p class="text-gray-700">Organisation du transport sécurisé de votre véhicule depuis l'Europe jusqu'à votre domicile, avec une assurance pour une tranquillité totale.</p>
-                    </div>
-                    <div class="bg-white/80 p-8 rounded-lg shadow-lg hover:shadow-xl transition duration-300 transform hover:scale-105">
-                        <div class="text-custom-blue text-5xl mb-4">📄</div>
-                        <h3 class="text-2xl font-semibold mb-4">Formalités administratives</h3>
-                        <p class="text-gray-700">Prise en charge complète des démarches douanières, de l'obtention du quitus fiscal et du certificat de conformité (COC).</p>
-                    </div>
-                    <div class="bg-white/80 p-8 rounded-lg shadow-lg hover:shadow-xl transition duration-300 transform hover:scale-105">
-                        <div class="text-custom-blue text-5xl mb-4">🏷️</div>
-                        <h3 class="text-2xl font-semibold mb-4">Immatriculation</h3>
-                        <p class="text-gray-700">Accompagnement pour l'immatriculation de votre véhicule en France, pour que vous puissiez prendre la route rapidement.</p>
-                    </div>
-                    <div class="bg-white/80 p-8 rounded-lg shadow-lg hover:shadow-xl transition duration-300 transform hover:scale-105">
-                        <div class="text-custom-blue text-5xl mb-4">✨</div>
-                        <h3 class="text-2xl font-semibold mb-4">Services complémentaires</h3>
-                        <p class="text-gray-700">Garantie étendue, préparation esthétique ou livraison à domicile pour une expérience sur mesure.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="comment-ca-marche" class="py-20 bg-white/80">
-            <div class="container mx-auto px-6 text-center">
-                <h2 class="text-3xl md:text-4xl font-bold mb-12 text-custom-blue">Notre processus en 4 étapes simples</h2>
-                <div class="relative flex flex-col items-center">
-                    <div class="absolute hidden md:block w-1 bg-custom-blue-light rounded-full left-1/2 transform -translate-x-1/2" style="top: 24px; bottom: 24px;"></div>
-
-                    <div class="flex flex-col md:flex-row items-center justify-center w-full mb-12">
-                        <div class="md:w-1/2 px-4 text-right md:pr-12">
-                            <h3 class="text-2xl font-semibold text-custom-blue mb-2">📝 1. Définissez votre projet</h3>
-                            <p class="text-gray-700">Remplissez notre formulaire de devis en précisant le véhicule de vos rêves et vos critères spécifiques.</p>
-                        </div>
-                        <div class="relative z-10 bg-custom-blue text-white rounded-full w-12 h-12 flex items-center justify-center text-xl font-bold shadow-lg md:mx-0 mx-auto mt-4 md:mt-0">1</div>
-                        <div class="md:w-1/2 px-4 text-left md:pl-12 hidden md:block"></div>
-                    </div>
-
-                    <div class="flex flex-col md:flex-row-reverse items-center justify-center w-full mb-12">
-                        <div class="md:w-1/2 px-4 text-left md:pl-12">
-                            <h3 class="text-2xl font-semibold text-custom-blue mb-2">🔎 2. Recherche et validation</h3>
-                            <p class="text-gray-700">Nous recherchons et vérifions les meilleures offres, puis vous validez le véhicule de votre choix.</p>
-                        </div>
-                        <div class="relative z-10 bg-custom-blue text-white rounded-full w-12 h-12 flex items-center justify-center text-xl font-bold shadow-lg md:mx-0 mx-auto mt-4 md:mt-0">2</div>
-                        <div class="md:w-1/2 px-4 text-right md:pr-12 hidden md:block"></div>
-                    </div>
-
-                    <div class="flex flex-col md:flex-row items-center justify-center w-full mb-12">
-                        <div class="md:w-1/2 px-4 text-right md:pr-12">
-                            <h3 class="text-2xl font-semibold text-custom-blue mb-2">📄 3. Importation et formalités</h3>
-                            <p class="text-gray-700">Nous gérons le transport sécurisé, les démarches douanières, la TVA et toutes les formalités administratives.</p>
-                        </div>
-                        <div class="relative z-10 bg-custom-blue text-white rounded-full w-12 h-12 flex items-center justify-center text-xl font-bold shadow-lg md:mx-0 mx-auto mt-4 md:mt-0">3</div>
-                        <div class="md:w-1/2 px-4 text-left md:pl-12 hidden md:block"></div>
-                    </div>
-
-                    <div class="flex flex-col md:flex-row-reverse items-center justify-center w-full">
-                        <div class="md:w-1/2 px-4 text-left md:pl-12">
-                            <h3 class="text-2xl font-semibold text-custom-blue mb-2">🔑 4. Livraison clé en main</h3>
-                            <p class="text-gray-700">Votre véhicule est livré prêt à être immatriculé. Profitez de votre nouvelle voiture sans soucis !</p>
-                        </div>
-                        <div class="relative z-10 bg-custom-blue text-white rounded-full w-12 h-12 flex items-center justify-center text-xl font-bold shadow-lg md:mx-0 mx-auto mt-4 md:mt-0">4</div>
-                        <div class="md:w-1/2 px-4 text-right md:pr-12 hidden md:block"></div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="pourquoi-nous" class="py-20 bg-gray-50/80">
-            <div class="container mx-auto px-6 text-center">
-                <h2 class="text-3xl md:text-4xl font-bold mb-12 text-custom-blue">Pourquoi choisir Auto La Stoa ?</h2>
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    <div class="bg-white/80 p-6 rounded-lg shadow-md flex items-start text-left">
-                        <div class="text-custom-blue text-3xl mr-4">🌟</div>
-                        <div>
-                            <h3 class="text-xl font-semibold mb-2">Expertise inégalée</h3>
-                            <p class="text-gray-700">Des années d'expérience dans l'importation et une connaissance approfondie du marché européen et de ses réglementations.</p>
-                        </div>
-                    </div>
-                    <div class="bg-white/80 p-6 rounded-lg shadow-md flex items-start text-left">
-                        <div class="text-custom-blue text-3xl mr-4">✅</div>
-                        <div>
-                            <h3 class="text-xl font-semibold mb-2">Transparence totale</h3>
-                            <p class="text-gray-700">Aucun frais caché. Un devis clair et détaillé pour chaque étape du processus.</p>
-                        </div>
-                    </div>
-                    <div class="bg-white/80 p-6 rounded-lg shadow-md flex items-start text-left">
-                        <div class="text-custom-blue text-3xl mr-4">🤝</div>
-                        <div>
-                            <h3 class="text-xl font-semibold mb-2">Accompagnement personnalisé</h3>
-                            <p class="text-gray-700">Un interlocuteur dédié à votre projet, de la recherche à la livraison.</p>
-                        </div>
-                    </div>
-                    <div class="bg-white/80 p-6 rounded-lg shadow-md flex items-start text-left">
-                        <div class="text-custom-blue text-3xl mr-4">🛡️</div>
-                        <div>
-                            <h3 class="text-xl font-semibold mb-2">Sécurité garantie</h3>
-                            <p class="text-gray-700">Vérifications rigoureuses des véhicules et transport assuré pour votre tranquillité.</p>
-                        </div>
-                    </div>
-                    <div class="bg-white/80 p-6 rounded-lg shadow-md flex items-start text-left">
-                        <div class="text-custom-blue text-3xl mr-4">💰</div>
-                        <div>
-                            <h3 class="text-xl font-semibold mb-2">Optimisation des coûts</h3>
-                            <p class="text-gray-700">Accédez aux meilleures offres pour économiser sur l'achat de votre véhicule.</p>
-                        </div>
-                    </div>
-                    <div class="bg-white/80 p-6 rounded-lg shadow-md flex items-start text-left">
-                        <div class="text-custom-blue text-3xl mr-4">⭐</div>
-                        <div>
-                            <h3 class="text-xl font-semibold mb-2">Satisfaction client</h3>
-                            <p class="text-gray-700">Votre satisfaction est notre priorité. Nos clients nous font confiance.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="faq" class="py-20 bg-gray-50/80">
-            <div class="container mx-auto px-6 text-center">
-                <h2 class="text-3xl md:text-4xl font-bold mb-12 text-custom-blue">Questions fréquemment posées</h2>
-                <div class="max-w-3xl mx-auto text-left">
-                    <div class="bg-white/80 p-6 rounded-lg shadow-md mb-4">
-                        <h3 class="text-xl font-semibold text-custom-blue mb-2">Quel type de voiture est-il intéressant de faire importer ?</h3>
-                        <p class="text-gray-700">Toutes les voitures peuvent être intéressantes à importer dès un budget de 10 000 €, car la diversité et les prix en Europe sont très attractifs. Que ce soit pour des modèles compacts, des berlines, des SUV ou des voitures de luxe, l'Europe offre une large gamme de véhicules à des tarifs compétitifs, souvent inférieurs à ceux du marché local.</p>
-                    </div>
-                    <div class="bg-white/80 p-6 rounded-lg shadow-md mb-4">
-                        <h3 class="text-xl font-semibold text-custom-blue mb-2">Combien de temps prend une importation ?</h3>
-                        <p class="text-gray-700">Le délai varie généralement entre 2 et 4 semaines, selon la provenance du véhicule et la rapidité des formalités administratives. Nous vous tenons informé à chaque étape.</p>
-                    </div>
-                    <div class="bg-white/80 p-6 rounded-lg shadow-md mb-4">
-                        <h3 class="text-xl font-semibold text-custom-blue mb-2">Quels sont les coûts supplémentaires à prévoir ?</h3>
-                        <p class="text-gray-700">Outre le prix du véhicule et nos frais de service, il faut prévoir la TVA (si non acquittée en Europe) et les frais d'immatriculation (carte grise).</p>
-                    </div>
-                    <div class="bg-white/80 p-6 rounded-lg shadow-md mb-4">
-                        <h3 class="text-xl font-semibold text-custom-blue mb-2">Comment se déroule le paiement ?</h3>
-                        <p class="text-gray-700">Le paiement est sécurisé et échelonné : un acompte est requis pour lancer la recherche et la validation, puis le solde est versé à la livraison ou lors de la prise en charge du véhicule.</p>
-                    </div>
-                    <div class="bg-white/80 p-6 rounded-lg shadow-md mb-4">
-                        <h3 class="text-xl font-semibold text-custom-blue mb-2">D'où proviennent vos véhicules ?</h3>
-                        <p class="text-gray-700">Nous importons principalement des véhicules d'Allemagne, de Belgique, des Pays-Bas et d'autres pays de l'Union européenne, reconnus pour la qualité de leur marché automobile et la transparence des transactions.</p>
-                    </div>
-                    <div class="bg-white/80 p-6 rounded-lg shadow-md mb-4">
-                        <h3 class="text-xl font-semibold text-custom-blue mb-2">Les véhicules importés sont-ils fiables ?</h3>
-                        <p class="text-gray-700">Oui, absolument. Nous collaborons uniquement avec des partenaires et concessionnaires reconnus en Europe. Chaque véhicule est soumis à une vérification rigoureuse de son historique, de son kilométrage et de son état général avant l'achat.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="contact" class="py-20 bg-white/80">
-            <div class="container mx-auto px-6 text-center">
-                <h2 class="text-3xl md:text-4xl font-bold mb-12 text-custom-blue">Faites-vous rappeler</h2>
-                <div class="max-w-2xl mx-auto bg-gray-50/80 p-8 rounded-lg shadow-lg">
-                    <form id="contactForm" action="https://docs.google.com/forms/d/e/1FAIpQLSeUSJkV04Uy1EcDnG7xGiLGc74_ty87AsYzt6KuWdXMYxHUYQ/formResponse" method="POST" target="_blank" class="space-y-6">
-                        <div>
-                            <label for="name" class="block text-left text-gray-700 font-semibold mb-2">Nom complet</label>
-                            <input type="text" id="name" name="entry.1266480385" class="w-full p-3 border border-gray-300 rounded-md focus:ring-custom-blue focus:border-custom-blue" placeholder="Votre nom et prénom" required>
-                        </div>
-                        <div>
-                            <label for="email" class="block text-left text-gray-700 font-semibold mb-2">Adresse email</label>
-                            <input type="email" id="email" name="entry.1381520928" class="w-full p-3 border border-gray-300 rounded-md focus:ring-custom-blue focus:border-custom-blue" placeholder="votre.email@example.com" required>
-                        </div>
-                        <div>
-                            <label for="phone" class="block text-left text-gray-700 font-semibold mb-2">Numéro de téléphone</label>
-                            <input type="tel" id="phone" name="entry.1577090415" class="w-full p-3 border border-gray-300 rounded-md focus:ring-custom-blue focus:border-custom-blue" placeholder="06 XX XX XX XX" pattern="[0-9]{10}" title="Veuillez entrer un numéro de téléphone à 10 chiffres (par exemple : 0612345678)." required>
-                        </div>
-                        <div>
-                            <label for="vehicle" class="block text-left text-gray-700 font-semibold mb-2">Véhicule souhaité (marque, modèle, année, kilométrage max, budget)</label>
-                            <textarea id="vehicle" name="entry.1322431296" rows="4" class="w-full p-3 border border-gray-300 rounded-md focus:ring-custom-blue focus:border-custom-blue" placeholder="Exemple : Peugeot 308, 2020+, < 50 000 km, budget 15 000 - 18 000 €"></textarea>
-                        </div>
-                        <div>
-                            <label for="message" class="block text-left text-gray-700 font-semibold mb-2">Votre message</label>
-                            <textarea id="message" name="entry.1893411838" rows="4" class="w-full p-3 border border-gray-300 rounded-md focus:ring-custom-blue focus:border-custom-blue" placeholder="Des questions spécifiques ?"></textarea>
-                        </div>
-                        <button type="submit" class="w-full bg-custom-blue text-white font-bold py-3 px-6 rounded-md hover:bg-custom-blue-darker transition duration-300 transform hover:scale-105 shadow-md">
-                            Envoyer ma demande
-                        </button>
-                    </form>
-                    <div id="formSuccessMessage" class="hidden mt-4 p-4 bg-green-100 text-green-700 rounded-md shadow-sm">
-                        Votre demande a été envoyée avec succès ! Nous vous contacterons sous peu.
-                    </div>
-                    <div id="formErrorMessage" class="hidden mt-4 p-4 bg-red-100 text-red-700 rounded-md shadow-sm">
-                        Veuillez corriger les erreurs dans le formulaire.
-                    </div>
-                </div>
-            </div>
-        </section>
-
-    </main>
-
-    <footer class="bg-gray-800 text-white py-6 px-6 relative z-10">
-        <div class="container mx-auto text-center md:flex md:justify-between md:items-center">
-            <div class="mb-6 md:mb-0">
-                <p>© 2025 Auto La Stoa. Tous droits réservés.</p>
-            </div>
-            <nav class="mb-6 md:mb-0 md:space-x-6 space-y-2 md:space-y-0">
-                <a href="mentions-legales.html" class="block md:inline-block text-gray-300 hover:text-white">Mentions légales</a>
-                <a href="politique-confidentialite.html" class="block md:inline-block text-gray-300 hover:text-white">Politique de confidentialité</a>
-            </nav>
-            <div class="flex justify-center space-x-4">
-                <a href="https://www.instagram.com/autolastoa" class="text-gray-300 hover:text-white text-2xl" aria-label="Instagram">
-                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4c0 3.2-2.6 5.8-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8C2 4.6 4.6 2 7.8 2zm-.2 2A2.6 2.6 0 005 7.6v8.8A2.6 2.6 0 007.6 19h8.8a2.6 2.6 0 002.6-2.6V7.6A2.6 2.6 0 0016.4 5H7.6zM12 7a5 5 0 100 10 5 5 0 000-10zm0 2a3 3 0 110 6 3 3 0 010-6zm6.5-3a1.25 1.25 0 100 2.5 1.25 1.25 0 000-2.5z"/></svg>
-                </a>
-                <a href="https://www.tiktok.com/@autolastoa" class="text-gray-300 hover:text-white text-2xl" aria-label="TikTok">
-                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-5.2 1.74 2.89 2.89 0 012.31-4.81 2.89 2.89 0 011.1.22v-3.8a6.35 6.35 0 00-1.1-.12c-3.46 0-6.29 2.84-6.29 6.34a6.34 6.34 0 004.06 5.92 6.34 6.34 0 007.39-1.75V9.58a8.27 8.27 0 004.95 1.61V7.44a4.82 4.82 0 01-.4-.75z"/>
-                    </svg>
-                </a>
-            </div>
-        </div>
-    </footer>
-
-    <script>
-        // JavaScript pour le menu mobile
-        const mobileMenuButton = document.getElementById('mobile-menu-button');
-        const mobileMenu = document.getElementById('mobile-menu');
-
-        mobileMenuButton.addEventListener('click', () => {
-            mobileMenu.classList.toggle('hidden');
-        });
-
-        // Fermer le menu mobile lors du clic sur un lien
-        mobileMenu.querySelectorAll('a').forEach(link => {
-            link.addEventListener('click', () => {
-                mobileMenu.classList.add('hidden');
-            });
-        });
-
-        // Animations CSS (ajouter des classes pour les déclencher)
-        document.addEventListener('DOMContentLoaded', () => {
-            const heroHeadline = document.querySelector('.animate-fade-in-down');
-            const heroSubheadline = document.querySelector('.animate-fade-in-up');
-            const heroCta = document.querySelector('.animate-bounce-in');
-
-            // Ajoutez des classes de début d'animation si elles ne sont pas déjà là
-            heroHeadline.style.animation = 'fadeInDown 1s ease-out forwards';
-            heroSubheadline.style.animation = 'fadeInUp 1s ease-out 0.3s forwards';
-            heroCta.style.animation = 'bounceIn 1s ease-out 0.6s forwards';
-
-            // Gestion de la soumission du formulaire pour Google Sheets
-            const contactForm = document.getElementById('contactForm');
-            const formSuccessMessage = document.getElementById('formSuccessMessage');
-            const formErrorMessage = document.getElementById('formErrorMessage');
-
-            if (contactForm) {
-                contactForm.addEventListener('submit', async (e) => {
-                    e.preventDefault();
-
-                    formSuccessMessage.classList.add('hidden');
-                    formErrorMessage.classList.add('hidden');
-
-                    let isValid = true;
-
-                    const phoneInput = document.getElementById('phone');
-                    const phonePattern = /^[0-9]{10}$/;
-                    if (phoneInput && !phonePattern.test(phoneInput.value)) {
-                        isValid = false;
-                        phoneInput.classList.add('border-red-500');
-                    } else if (phoneInput) {
-                        phoneInput.classList.remove('border-red-500');
-                    }
-
-                    const emailInput = document.getElementById('email');
-                    if (emailInput && !emailInput.checkValidity()) {
-                        isValid = false;
-                        emailInput.classList.add('border-red-500');
-                    } else if (emailInput) {
-                        emailInput.classList.remove('border-red-500');
-                    }
-
-                    if (!isValid) {
-                        if (formErrorMessage) {
-                            formErrorMessage.classList.remove('hidden');
-                        }
-                        return;
-                    }
-
-                    const formData = new FormData(contactForm);
-                    const formUrl = contactForm.action;
-
-                    try {
-                        const response = await fetch(formUrl, {
-                            method: 'POST',
-                            body: formData,
-                            mode: 'no-cors'
-                        });
-
-                        if (formSuccessMessage) {
-                            formSuccessMessage.classList.remove('hidden');
-                        }
-                        contactForm.reset();
-
-                        setTimeout(() => {
-                            if (formSuccessMessage) {
-                                formSuccessMessage.classList.add('hidden');
-                            }
-                        }, 5000);
-
-                    } catch (error) {
-                        console.error('Erreur lors de l\'envoi du formulaire :', error);
-                        if (formErrorMessage) {
-                            formErrorMessage.textContent = "Une erreur est survenue lors de l'envoi. Veuillez réessayer.";
-                            formErrorMessage.classList.remove('hidden');
-                        }
-                    }
-                });
-            }
-        });
-    </script>
 </body>
 </html>
-
-
-
