@@ -534,9 +534,6 @@
 <!-- ══════════════════════════════════════
      HEADER
 ══════════════════════════════════════ -->
-<!-- ══════════════════════════════════════
-     HEADER
-══════════════════════════════════════ -->
 <header id="main-header">
   <div class="header-inner">
     <a href="#" class="logo-wrap">
@@ -550,9 +547,9 @@
     <div class="hidden md:flex items-center gap-4">
       <span class="tab-label">Que souhaitez-vous faire ?</span>
       <div class="service-tabs" id="service-tabs">
-        <button class="tab-btn" data-tab="vente">Acheter</button>
+        <button class="tab-btn active" data-tab="vente">Acheter</button>
         <button class="tab-btn" data-tab="achat">Vendre</button>
-        <button class="tab-btn active" data-tab="import">Importer</button>
+        <button class="tab-btn" data-tab="import">Importer</button>
       </div>
     </div>
 
@@ -565,11 +562,11 @@
   <!-- Mobile menu -->
   <div id="mobile-menu" class="px-4 pb-3" style="border-top:1px solid #f0f0f0; background:white;">
     <div class="flex gap-2 mb-3 pt-2">
-      <button class="tab-btn flex-1 text-center" data-tab="vente">Acheter</button>
+      <button class="tab-btn flex-1 text-center active" data-tab="vente">Acheter</button>
       <button class="tab-btn flex-1 text-center" data-tab="achat">Vendre</button>
       <button class="tab-btn flex-1 text-center" data-tab="import">Importer</button>
     </div>
-    <div id="mobile-import-nav" class="space-y-1">
+    <div id="mobile-import-nav" class="space-y-1" style="display:none;">
       <a href="#import-services" class="block py-2 px-3 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-50">Services</a>
       <a href="#import-process" class="block py-2 px-3 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-50">Comment ça marche</a>
       <a href="#import-faq" class="block py-2 px-3 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-50">FAQ</a>
@@ -579,7 +576,7 @@
 </header>
 
 <!-- ── Fixed blue subnav bar (import only) — sits flush below header ── -->
-<div id="import-subnav">
+<div id="import-subnav" style="display:none;">
   <a href="#import-services" class="header-subnav-link">Services</a>
   <a href="#import-process" class="header-subnav-link">Comment ça marche</a>
   <a href="#import-faq" class="header-subnav-link">FAQ</a>
@@ -792,7 +789,7 @@ const STOCK = [
      FIN DU BLOC DE CONFIGURATION STOCK
 ══════════════════════════════════════════════════════════════════ -->
 
-<div class="page" id="page-vente">
+<div class="page active" id="page-vente">
   <div class="vente-hero">
     <h1>Nos véhicules à vendre</h1>
     <p>Retrouvez notre sélection de véhicules soigneusement choisis, vérifiés et prêts à partir.</p>
@@ -809,7 +806,7 @@ const STOCK = [
 <!-- ══════════════════════════════════════
      PAGE : IMPORT
 ══════════════════════════════════════ -->
-<div class="page active" id="page-import">
+<div class="page" id="page-import">
 
   <!-- HERO -->
   <section class="hero" id="accueil">
@@ -1207,8 +1204,8 @@ const STOCK = [
     el?.addEventListener('input', () => el.classList.remove('error'));
   });
 
-  // ── Init: import tab active by default, subnav visible
-  document.getElementById('import-subnav').style.display = 'flex';
+  // ── Init: vente tab active by default, subnav hidden
+  document.getElementById('import-subnav').style.display = 'none';
 
   // ── Compensate for fixed header height dynamically
   function adjustBodyPadding() {
