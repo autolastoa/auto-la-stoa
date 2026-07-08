@@ -1212,13 +1212,20 @@ const STOCK = [
     const badgeLabel  = { dispo: 'Disponible', reserve: 'Réservé', vendu: 'Vendu' };
     const badgeClass  = { dispo: 'dispo',      reserve: 'reserve', vendu: 'vendu'  };
     const icons       = ['🚗','🚙','🏎️','🚐','🚕','🛻'];
+    const statutOrder = { dispo: 0, reserve: 1, vendu: 2 };
 
     if (!STOCK || STOCK.length === 0) {
       empty.classList.remove('hidden');
       return;
     }
 
-    STOCK.forEach((v, i) => {
+    const stockTrie = [...STOCK].sort((a, b) => {
+      const oa = statutOrder[a.statut] ?? 99;
+      const ob = statutOrder[b.statut] ?? 99;
+      return oa - ob;
+    });
+
+    stockTrie.forEach((v, i) => {
       const statut  = v.statut || 'dispo';
       const isDispo = statut === 'dispo';
 
